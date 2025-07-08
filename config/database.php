@@ -113,6 +113,16 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'sqlsrv_AXDB30' => [
+            'driver' => 'sqlsrv',
+            'dsn' => 'odbc:Driver={SQL Server};Server=192.168.1.19;Database=AXDB30;',
+            'host' => '192.168.1.19', 
+            'database' => 'AXDB30', 
+            'username' => 'alex',
+            'password' => 'alex',
+            'prefix' => '',
+        ],
+
     ],
 
     /*
