@@ -7,7 +7,9 @@
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div style="background-color: #00a091;" class="col-lg-6 d-flex justify-content-center align-items-center">
+                            <img style="width: 82%;" src="{{ asset('assets/logo_plataforma/sir_white.png') }}" alt="logo_sir">
+                        </div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">

@@ -12,7 +12,7 @@ class LogController extends Controller
 {
     public static function setRegistroEntrada($user, $latitud = 0, $longitud = 0, $idmenu = 0)
     {
-        $userid = ClienteController::getCodigoEmpleado($user, 'far');
+        $userid = ClienteController::getCodigoEmpleado($user);
         $ipAddress = LogController::getRealIpAddress();
         $substring = "192.168";
         if (($ipAddress != '80.38.218.109') && (strpos($ipAddress, $substring) === false)){
@@ -23,7 +23,7 @@ class LogController extends Controller
 
             if ($num_accesos[0]->ACCESOS < 10) {
                 $sql = " INSERT INTO NAT_SIC_LOGS (DATETIME, DATAAREAID, USER_, LAT,LONG,DATEACCES, TIMEACCES, IDMENU, IP, RECID) ";
-                $sql .= " VALUES (getdate(),'FAR','" . $userid . "','" . $data['latitude'] . "','" . $data['longitude'] . "','" . date("Y-m-d") . "','" . date("H:i:s") . "','" . $idmenu . "','" . $ipAddress . "', (SELECT max(RECID) FROM NAT_SIC_LOGS)+1) ";
+                $sql .= " VALUES (getdate(),'NSL','" . $userid . "','" . $data['latitude'] . "','" . $data['longitude'] . "','" . date("Y-m-d") . "','" . date("H:i:s") . "','" . $idmenu . "','" . $ipAddress . "', (SELECT max(RECID) FROM NAT_SIC_LOGS)+1) ";
                 $result = DB::connection('sqlsrv_log')->insert($sql);
                 if ($result) {
                     return $num_accesos[0]->ACCESOS;
