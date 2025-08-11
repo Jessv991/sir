@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Clientes\ClienteController;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use App\Models\NAT_SIC_LOGS;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
     public static function setRegistroEntrada($user, $latitud = 0, $longitud = 0, $idmenu = 0)
     {
-        $userid = ClienteController::getCodigoEmpleado($user);
+        $userid = NAT_SIC_LOGS::getCodigoEmpleado($user);
         $ipAddress = LogController::getRealIpAddress();
         $substring = "192.168";
         if (($ipAddress != '80.38.218.109') && (strpos($ipAddress, $substring) === false)){
