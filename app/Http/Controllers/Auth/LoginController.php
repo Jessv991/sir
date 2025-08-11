@@ -5,81 +5,52 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\DB;
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Controllers\Auth\LogController;
 use App\Models\EMPLTABLE;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
+    public function username()
+    {
+        return 'EMAIL';
+    }
+    //675
     protected function login(Request $request)
     {
-        // Validar datos del formulario
         $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // Buscar al usuario manualmente con condiciones adicionales
-        $user = EMPLTABLE::where('EMAIL', $request->email)
+        $credentials = $request->only('email', 'password');
+        $user = \App\Models\EMPLTABLE::where('EMAIL', $credentials['email'])
+            ->where('SIR_PASSWORD', $credentials['password'])
             ->where('SIR_ACTIVE', 1)
             ->whereIn('PBAUSERPROFILE', ['Comerfarma', 'SuperComer'])
             ->first();
 
-        // Intentar iniciar sesión
-        if (Auth::attempt([
-            'EMAIL' => $request->email,
-            'SIR_PASSWORD' => $request->password,
-            'SIR_ACTIVE' => function ($query) {
-                $query->where('SIR_ACTIVE', '=', '1');
-            },
-            'PBAUSERPROFILE' => function ($query) {
-                $query->whereIn('PBAUSERPROFILE', array('Comerfarma', 'SuperComer'));
-            }
-        ], $request->filled('remember'))) {
-            // Regenerar sesión para evitar fijación de sesión
+        // Si existe, iniciar sesión
+        if ($user) {
+            Auth::login($user); // <-- inicia sesión manual
+            LogController::setRegistroEntrada($credentials['email'], '0.1', '0.2', 1);
             $request->session()->regenerate();
-
-            // Agregar mensaje flash
             session()->flash('success', '¡Has accedido correctamente!');
-
-            // Redirigir al destino deseado
-            return $this->redirectTo;
+            return redirect()->intended($this->redirectTo);
         }
 
-        // Si las credenciales fallan
+        // Si no existe, error
         throw ValidationException::withMessages([
             'email' => ['Estas credenciales no coinciden con nuestros registros.'],
         ]);

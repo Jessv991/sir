@@ -246,7 +246,7 @@ class EMPLTABLE extends Authenticatable
         'RECID' => 'integer',
         'WORKINGCOMPANY' => 'string',
         'CREATEDDATE' => 'datetime',
-        'SIR_PASSWORD2' => 'string',
+        'SIR_PASSWORD' => 'string',
         'EMPLIDRESPONSABLE' => 'string',
         'MODIFIEDDATE' => 'datetime',
         'MODIFIEDTIME' => 'integer',
