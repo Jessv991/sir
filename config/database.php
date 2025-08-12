@@ -123,6 +123,16 @@ return [
             'prefix' => '',
         ],
 
+        'sqlsrv_log' => [
+            'driver' => 'sqlsrv',
+            'dsn' => 'odbc:Driver={SQL Server};Server=192.168.1.19;Database=AXDB30;',
+            'host' => '192.168.1.19',
+            'database' => 'AXDB30',
+            'username' => 'nat_logweb',
+            'password' => 'natural123',
+            'prefix' => '',
+        ],
+
     ],
 
     /*

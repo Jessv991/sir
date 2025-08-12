@@ -35,11 +35,10 @@ class LoginController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        $user = \App\Models\EMPLTABLE::where('EMAIL', $credentials['email'])
-            ->where('SIR_PASSWORD', $credentials['password'])
-            ->where('SIR_ACTIVE', 1)
-            ->whereIn('PBAUSERPROFILE', ['Comerfarma', 'SuperComer'])
-            ->first();
+        $user = EMPLTABLE::withValidCredentials(
+            $credentials['email'],
+            $credentials['password']
+        );
 
         // Si existe, iniciar sesión
         if ($user) {

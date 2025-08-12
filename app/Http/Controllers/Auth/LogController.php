@@ -6,43 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Clientes\ClienteController;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
-use App\Models\NAT_SIC_LOGS;
+use App\Models\EMPLTABLE;
+use App\Models\NAT_SIR_LOGS;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
     public static function setRegistroEntrada($user, $latitud = 0, $longitud = 0, $idmenu = 0)
     {
-        $userid = NAT_SIC_LOGS::getCodigoEmpleado($user);
+        $userid = EMPLTABLE::getCodigoEmpleado($user);
         $ipAddress = LogController::getRealIpAddress();
         $substring = "192.168";
         if (($ipAddress != '80.38.218.109') && (strpos($ipAddress, $substring) === false)){
             $coordenadas = LogController::getCoordinates($ipAddress);
             $data = json_decode($coordenadas, true);
-            $sql = "SELECT count(*) AS ACCESOS FROM NAT_SIC_LOGS WHERE USER_ = '" . $userid . "';";
-            $num_accesos = DB::connection('sqlsrv_log')->select($sql);
+            $num_accesos = NAT_SIR_LOGS::accessionNumber($userid);
 
-            if ($num_accesos[0]->ACCESOS < 10) {
-                $sql = " INSERT INTO NAT_SIC_LOGS (DATETIME, DATAAREAID, USER_, LAT,LONG,DATEACCES, TIMEACCES, IDMENU, IP, RECID) ";
-                $sql .= " VALUES (getdate(),'NSL','" . $userid . "','" . $data['latitude'] . "','" . $data['longitude'] . "','" . date("Y-m-d") . "','" . date("H:i:s") . "','" . $idmenu . "','" . $ipAddress . "', (SELECT max(RECID) FROM NAT_SIC_LOGS)+1) ";
-                $result = DB::connection('sqlsrv_log')->insert($sql);
+            if ($num_accesos < 10) {
+                $result = NAT_SIR_LOGS::insert($userid, $data['latitude'], $data['longitude'], $idmenu, $ipAddress);
                 if ($result) {
-                    return $num_accesos[0]->ACCESOS;
+                    return $num_accesos;
                 } else {
                     return false;
                 }
             } else {
-                $sql = "UPDATE TOP(1) NAT_SIC_LOGS ";
-                $sql .= "SET LAT = '" . $data['latitude'] . "', ";
-                $sql .= "LONG = '" . $data['longitude'] . "', ";
-                $sql .= "DATEACCES = '" . date("Y-m-d") . "', ";
-                $sql .= "TIMEACCES = '" . date("H:i:s") . "', ";
-                $sql .= "IDMENU = '" . $idmenu . "', IP = '" . $ipAddress . "', ";
-                $sql .= "DATETIME = getdate() ";
-                $sql .= "WHERE DATETIME = (SELECT min(DATETIME) FROM NAT_SIC_LOGS WHERE USER_ = '" . $userid . "') ";
-                $sql .= "AND USER_ = '" . $userid . "';";
-                $result =  DB::connection('sqlsrv_log')->update($sql);
-                return $num_accesos[0]->ACCESOS;
+                $result =  NAT_SIR_LOGS::updateAcces($userid, $data['latitude'], $data['longitude'], $idmenu, $ipAddress);
+                return $num_accesos;
             }
         }else{
             return false;

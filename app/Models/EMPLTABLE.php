@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class EMPLTABLE extends Authenticatable
 {
@@ -257,7 +258,7 @@ class EMPLTABLE extends Authenticatable
     ];
 
 
-     public function getAuthPassword()
+    /*  public function getAuthPassword()
     {    
         return $this->SIR_PASSWORD;
     }
@@ -270,6 +271,29 @@ class EMPLTABLE extends Authenticatable
     public function getUserProfile()
     {    
         return $this->PBAUSERPROFILE;
+    } */
+
+    public static function getCodigoEmpleado($email)
+    {
+        $emplid = DB::connection('sqlsrv_AXDB30')->table('EMPLTABLE')
+            ->select('EMPLID')
+            ->where('EMAIL', $email)
+            ->where(function ($query) {
+                $query->whereIn('DATAAREAID', ['far', 'vir'])
+                    ->orWhere('WORKINGCOMPANY', 'NSL');
+            })
+            ->limit(1)
+            ->first();
+
+        return $emplid?->EMPLID ?? null;
     }
 
+    public static function withValidCredentials($email, $password)
+    {
+        return static::where('EMAIL', $email)
+            ->where('SIR_PASSWORD', $password)
+            ->where('SIR_ACTIVE', 1)
+            ->whereIn('PBAUSERPROFILE', ['Comerfarma', 'SuperComer'])
+            ->first();
+    }
 }
