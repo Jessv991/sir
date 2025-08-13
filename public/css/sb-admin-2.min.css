@@ -12121,7 +12121,7 @@ a:focus {
 }
 
 .sidebar-dark #sidebarToggle {
-    background-color: rgba(255, 255, 255, .2)
+    background-color: rgba(0, 160, 145, .5)
 }
 
 .sidebar-dark #sidebarToggle::after {
@@ -12129,7 +12129,7 @@ a:focus {
 }
 
 .sidebar-dark #sidebarToggle:hover {
-    background-color: rgba(255, 255, 255, .25)
+    background-color: rgba(0, 160, 145, .25)
 }
 
 .sidebar-dark.toggled #sidebarToggle::after {

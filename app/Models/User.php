@@ -28,8 +28,9 @@ class User extends Authenticatable
         'SIR_PASSWORD',
         'SIR_ACTIVE',
         'PBAUSERPROFILE',
-        'name',
-        'last_name',
+        'NAME',
+        'USERID',
+        'CELLULARPHONE'
     ];
 
     // Campos ocultos al exportar a array/JSON
@@ -37,15 +38,6 @@ class User extends Authenticatable
         'SIR_PASSWORD',
         'remember_token',
     ];
-
-    // Ejemplo de accessor para nombre completo
-    public function getFullNameAttribute()
-    {
-        if (is_null($this->last_name)) {
-            return "{$this->name}";
-        }
-        return "{$this->name} {$this->last_name}";
-    }
 
     // Mutator para encriptar la contraseña al guardarla
     public function setSirPasswordAttribute($value)
