@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\EMPLTABLE;
+use App\Models\CUSTTABLE;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
+
 
 class HomeController extends Controller
 {
@@ -24,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::count();
+        $users = EMPLTABLE::count();
 
         $widget = [
             'users' => $users,
@@ -32,5 +36,18 @@ class HomeController extends Controller
         ];
 
         return view('home', compact('widget'));
+    }
+
+    public function datatableBuscadorCliente(Request $request){
+        if ($request->ajax()) {
+            $data = CUSTTABLE::getClientes($empresa= 'prt', $perfil= NULL, $user= null);
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    return '<a href="#" class="btn btn-sm btn-primary">Editar</a>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 }

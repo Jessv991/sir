@@ -2049,12 +2049,12 @@ pre code {
 }
 
 .table-dark.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(255, 255, 255, .05)
+    background-color: rgba(0, 160, 145, .05)
 }
 
 .table-dark.table-hover tbody tr:hover {
     color: #fff;
-    background-color: rgba(255, 255, 255, .075)
+    background-color: rgba(0, 160, 145, .075)
 }
 
 @media (max-width:575.98px) {
@@ -4984,16 +4984,16 @@ input[type=submit].btn-block {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, .5)
+    color: rgba(0, 160, 145, .5)
 }
 
 .navbar-dark .navbar-nav .nav-link:focus,
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: rgba(255, 255, 255, .75)
+    color: rgba(0, 160, 145, .75)
 }
 
 .navbar-dark .navbar-nav .nav-link.disabled {
-    color: rgba(255, 255, 255, .25)
+    color: rgba(0, 160, 145, .25)
 }
 
 .navbar-dark .navbar-nav .active>.nav-link,
@@ -5004,16 +5004,16 @@ input[type=submit].btn-block {
 }
 
 .navbar-dark .navbar-toggler {
-    color: rgba(255, 255, 255, .5);
-    border-color: rgba(255, 255, 255, .1)
+    color: rgba(0, 160, 145, .5);
+    border-color: rgba(0, 160, 145, .1)
 }
 
 .navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 160, 145, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
 }
 
 .navbar-dark .navbar-text {
-    color: rgba(255, 255, 255, .5)
+    color: rgba(0, 160, 145, .5)
 }
 
 .navbar-dark .navbar-text a {
@@ -5775,7 +5775,7 @@ a.badge-dark:focus {
 }
 
 .progress-bar-striped {
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(0, 160, 145, .15) 25%, transparent 25%, transparent 50%, rgba(0, 160, 145, .15) 50%, rgba(0, 160, 145, .15) 75%, transparent 75%, transparent);
     background-size: 1rem 1rem
 }
 
@@ -6198,7 +6198,7 @@ a.close.disabled {
     flex-basis: 350px;
     max-width: 350px;
     font-size: .875rem;
-    background-color: rgba(255, 255, 255, .85);
+    background-color: rgba(0, 160, 145, .85);
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .1);
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .1);
@@ -6228,7 +6228,7 @@ a.close.disabled {
     align-items: center;
     padding: .25rem .75rem;
     color: #718096;
-    background-color: rgba(255, 255, 255, .85);
+    background-color: rgba(0, 160, 145, .85);
     background-clip: padding-box;
     border-bottom: 1px solid rgba(0, 0, 0, .05);
     border-top-left-radius: calc(.25rem - 1px);
@@ -10878,7 +10878,7 @@ a.text-dark:hover {
 }
 
 .text-white-50 {
-    color: rgba(255, 255, 255, .5) !important
+    color: rgba(0, 160, 145, .5) !important
 }
 
 .text-hide {
@@ -11680,7 +11680,7 @@ a:focus {
 }
 
 .topbar.navbar-dark .navbar-nav .nav-item .nav-link {
-    color: rgba(255, 255, 255, .8)
+    color: rgba(0, 160, 145, .8)
 }
 
 .topbar.navbar-dark .navbar-nav .nav-item .nav-link:hover {
@@ -12081,19 +12081,19 @@ a:focus {
 }
 
 .sidebar-dark hr.sidebar-divider {
-    border-top: 1px solid rgba(255, 255, 255, .15)
+    border-top: 1px solid rgba(0, 160, 145, .15)
 }
 
 .sidebar-dark .sidebar-heading {
-    color: rgba(255, 255, 255, .4)
+    color: rgba(0, 160, 145, .4)
 }
 
 .sidebar-dark .nav-item .nav-link {
-    color: rgba(255, 255, 255, .8)
+    color: rgba(0, 160, 145, .8)
 }
 
 .sidebar-dark .nav-item .nav-link i {
-    color: rgba(255, 255, 255, .3)
+    color: rgba(0, 160, 145, .3)
 }
 
 .sidebar-dark .nav-item .nav-link:active,
@@ -12109,7 +12109,7 @@ a:focus {
 }
 
 .sidebar-dark .nav-item .nav-link[data-toggle=collapse]::after {
-    color: rgba(255, 255, 255, .5)
+    color: rgba(0, 160, 145, .5)
 }
 
 .sidebar-dark .nav-item.active .nav-link {
@@ -12125,7 +12125,7 @@ a:focus {
 }
 
 .sidebar-dark #sidebarToggle::after {
-    color: rgba(255, 255, 255, .5)
+    color: rgba(45, 106, 100, 0.52)
 }
 
 .sidebar-dark #sidebarToggle:hover {
@@ -12133,7 +12133,7 @@ a:focus {
 }
 
 .sidebar-dark.toggled #sidebarToggle::after {
-    color: rgba(255, 255, 255, .5)
+    color: rgba(0, 160, 145, .5)
 }
 
 .btn-circle {
@@ -12216,7 +12216,7 @@ a:focus {
     color: #fff;
     background-color: #e12717;
     border-color: #e6e6e6;
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-google.disabled,
@@ -12237,7 +12237,7 @@ a:focus {
 .btn-google:not(:disabled):not(.disabled).active:focus,
 .btn-google:not(:disabled):not(.disabled):active:focus,
 .show>.btn-google.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-facebook {
@@ -12257,7 +12257,7 @@ a:focus {
     color: #fff;
     background-color: #30497c;
     border-color: #e6e6e6;
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-facebook.disabled,
@@ -12278,7 +12278,7 @@ a:focus {
 .btn-facebook:not(:disabled):not(.disabled).active:focus,
 .btn-facebook:not(:disabled):not(.disabled):active:focus,
 .show>.btn-facebook.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-twitter {
@@ -12298,7 +12298,7 @@ a:focus {
     color: #fff;
     background-color: #0d8ddc;
     border-color: #e6e6e6;
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-twitter.disabled,
@@ -12319,7 +12319,7 @@ a:focus {
 .btn-twitter:not(:disabled):not(.disabled).active:focus,
 .btn-twitter:not(:disabled):not(.disabled):active:focus,
 .show>.btn-twitter.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-youtube {
@@ -12339,7 +12339,7 @@ a:focus {
     color: #fff;
     background-color: #d90000;
     border-color: #e6e6e6;
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-youtube.disabled,
@@ -12360,7 +12360,7 @@ a:focus {
 .btn-youtube:not(:disabled):not(.disabled).active:focus,
 .btn-youtube:not(:disabled):not(.disabled):active:focus,
 .show>.btn-youtube.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-github {
@@ -12380,7 +12380,7 @@ a:focus {
     color: #fff;
     background-color: #202020;
     border-color: #e6e6e6;
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-github.disabled,
@@ -12401,7 +12401,7 @@ a:focus {
 .btn-github:not(:disabled):not(.disabled).active:focus,
 .btn-github:not(:disabled):not(.disabled):active:focus,
 .show>.btn-github.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-whatsapp {
@@ -12421,7 +12421,7 @@ a:focus {
     color: #fff;
     background-color: #1fb256;
     border-color: #e6e6e6;
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .btn-whatsapp.disabled,
@@ -12442,7 +12442,7 @@ a:focus {
 .btn-whatsapp:not(:disabled):not(.disabled).active:focus,
 .btn-whatsapp:not(:disabled):not(.disabled):active:focus,
 .show>.btn-whatsapp.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 160, 145, .5)
 }
 
 .card .card-header .dropdown {

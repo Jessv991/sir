@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,14 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 }); */
 
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['ca', 'es', 'en'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('setLocale');
+
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -25,6 +34,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/datatableBuscadorCliente', [HomeController::class, 'datatableBuscadorCliente'])->name('datatableBuscadorCliente');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
