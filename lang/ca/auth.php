@@ -38,5 +38,8 @@ return [
     'telephone' => 'Telèfon',
     'group' => 'Agrupació',
     'search' => 'Buscar per...',
+    'remember_me' => "Recorda'm",
+    'login' => "Accés",
+    'password' => "Clau",
 
 ];

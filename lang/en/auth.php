@@ -38,5 +38,8 @@ return [
     'telephone' => 'Telephone',
     'group' => 'Group',
     'search' => 'Search for...',
+    'remember_me' => "Remember Me",
+    'login' => "Login",
+    'password' => "Password",
 
 ];

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class NAT_SIR_LOGS extends Model
 {
-    protected $connection = 'sqlsrv_log';
+    protected $connection = 'sqlsrv_log'; //AQUÍ USAMOS ESTE ACCESO, PARA QUE REGISTRE EL INICIO DE SESIÓN, PORQUE TIENE EL PERMISO
     protected $table = 'NAT_SIR_LOGS';
     protected $primaryKey = 'RECID';
     public $incrementing = false;

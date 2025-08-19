@@ -22,20 +22,19 @@
     <!-- Styles -->
     <link href="{{ asset('css/new.css') }}" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
     <!-- Favicon -->
-    <link href="{{ asset('assets/logo_plataforma/sir_black.png') }}" rel="icon" type="image/png">
-    
+    <link href="{{ asset('assets/icon/sir_black.png') }}" rel="icon" type="image/png">
+
     <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css">
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -69,10 +68,10 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center text-dark"
                 href="{{ url('/home') }}">
-                <div style="width: 56%;" class="sidebar-brand-icon rotate-n-15">
-                    <img style="width: 87%;" src="{{ asset('assets/logo_plataforma/sir_black.png') }}" alt="logo_sir">
+                <div style="width: 56%;" class="sidebar-brand-icon">
+                    <img style="width: 62%;" src="{{ asset('assets/icon/sir_black.png') }}" alt="logo_sir">
                 </div>
-                <div style="font-size: 12px;" class="sidebar-brand-text ms-3">Natural Optics Group</div>
+                <div style="font-size: 13px;" class="sidebar-brand-text">Natural Optics Group</div>
             </a>
 
             <!-- Divider -->
@@ -133,10 +132,14 @@
 
                         <!-- Nav Item - Lang -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <div class="btn-group nav-link dropdown-toggle" role="group" aria-label="Selector de idioma">
-                                <a href="{{ route('setLocale', 'ca') }}" class="btn btn-outline-primary">{{ __('auth.catalan') }}</a>
-                                <a href="{{ route('setLocale', 'es') }}" class="btn btn-outline-primary">{{ __('auth.spanish') }}</a>
-                                <a href="{{ route('setLocale', 'en') }}" class="btn btn-outline-primary">{{ __('auth.english') }}</a>
+                            <div class="btn-group nav-link dropdown-toggle" role="group"
+                                aria-label="Selector de idioma">
+                                <a href="{{ route('setLocale', 'ca') }}"
+                                    class="btn btn-outline-primary">{{ __('auth.catalan') }}</a>
+                                <a href="{{ route('setLocale', 'es') }}"
+                                    class="btn btn-outline-primary">{{ __('auth.spanish') }}</a>
+                                <a href="{{ route('setLocale', 'en') }}"
+                                    class="btn btn-outline-primary">{{ __('auth.english') }}</a>
                             </div>
                         </li>
 
@@ -202,8 +205,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -224,8 +226,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 </body>
 

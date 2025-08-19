@@ -1,10 +1,3 @@
-.btn-primary {
-    --bs-btn-bg: #b853b2 !important;
-    --bs-btn-border-color: #b853b2 !important;
-    --bs-btn-hover-bg: #4e73df !important;
-    --bs-btn-hover-border-color: #4e73df !important;
-}
-
 .text-primary {
     color: #4e73df !important;
 }
@@ -86,7 +79,7 @@
 
 .bg-gradient-primary {
     background-color: #CCE5D6;
-    background-image: linear-gradient(180deg, #fff 10%, #9AD0BF 100%);
+    background-image: linear-gradient(180deg, #fff 10%, #00a091 100%);
     background-size: cover
 }
 
@@ -541,12 +534,40 @@
     margin: auto 1rem
 }
 
-.text-gray-600 {
-    color: #718096 !important
+.text-gray-100 {
+    color: #f7fafc !important
+}
+
+.text-gray-200 {
+    color: #edf2f7 !important
+}
+
+.text-gray-300 {
+    color: #e2e8f0 !important
 }
 
 .text-gray-400 {
     color: #cbd5e0 !important
+}
+
+.text-gray-500 {
+    color: #a0aec0 !important
+}
+
+.text-gray-600 {
+    color: #718096 !important
+}
+
+.text-gray-700 {
+    color: #4a5568 !important
+}
+
+.text-gray-800 {
+    color: #2d3748 !important
+}
+
+.text-gray-900 {
+    color: #1a202c !important
 }
 
 small {
@@ -700,6 +721,52 @@ body.sidebar-toggled footer.sticky-footer {
     flex: 1 0 auto
 }
 
+.card-profile-image {
+    text-align: center
+}
+
+.card-profile-image img {
+    margin: 8px 0;
+    max-width: 180px;
+    border-radius: .35rem;
+    transition: all .2s ease-in-out
+}
+
+
+/* 
+██████╗  █████╗ ████████╗ █████╗ ██████╗ ██╗     ███████╗
+██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝
+██║  ██║███████║   ██║   ███████║██████╔╝██║     █████╗  
+██║  ██║██╔══██║   ██║   ██╔══██║██╔══██╗██║     ██╔══╝  
+██████╔╝██║  ██║   ██║   ██║  ██║██████╔╝███████╗███████╗
+╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝
+                                                         
+*/
+
+.pagination {
+    --bs-pagination-active-bg: #00a091 !important;
+    --bs-pagination-active-border-color: #00a091 !important;
+    --bs-pagination-color: #00a091 !important;
+}
+
+/* 
+██████╗  ██████╗  ██████╗ ████████╗███████╗████████╗██████╗  █████╗ ██████╗ 
+██╔══██╗██╔═══██╗██╔═══██╗╚══██╔══╝██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗
+██████╔╝██║   ██║██║   ██║   ██║   ███████╗   ██║   ██████╔╝███████║██████╔╝
+██╔══██╗██║   ██║██║   ██║   ██║   ╚════██║   ██║   ██╔══██╗██╔══██║██╔═══╝ 
+██████╔╝╚██████╔╝╚██████╔╝   ██║   ███████║   ██║   ██║  ██║██║  ██║██║     
+╚═════╝  ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     
+                                                                            
+*/
+
+/* b853b2 */
+.btn-primary {
+    --bs-btn-bg: #00a091 !important;
+    --bs-btn-border-color: #00a091 !important;
+    --bs-btn-hover-bg: #4e73df !important;
+    --bs-btn-hover-border-color: #4e73df !important;
+}
+
 /* 
  ██████╗ ██╗   ██╗███████╗██████╗ ██╗   ██╗
 ██╔═══██╗██║   ██║██╔════╝██╔══██╗╚██╗ ██╔╝
@@ -716,6 +783,12 @@ body.sidebar-toggled footer.sticky-footer {
         top: 4.375rem;
         z-index: 1;
         height: 100%
+    }
+}
+
+@media (max-width:767.98px) {
+    .card-profile-image img {
+        max-width: 150px
     }
 }
 
