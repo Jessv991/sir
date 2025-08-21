@@ -37,12 +37,12 @@
                                         <input type="password" class="form-control form-control-user" name="password" placeholder="{{ __('auth.password') }}" required>
                                     </div>
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="remember">{{ __('auth.remember_me') }}</label>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

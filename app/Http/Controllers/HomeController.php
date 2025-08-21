@@ -32,7 +32,6 @@ class HomeController extends Controller
 
         $widget = [
             'users' => $users,
-            //...
         ];
 
         return view('home', compact('widget'));
@@ -40,7 +39,7 @@ class HomeController extends Controller
 
     public function datatableBuscadorCliente(Request $request){
         if ($request->ajax()) {
-            $data = CUSTTABLE::getClientes($empresa= 'prt', $perfil= NULL, $user= null);
+            $data = CUSTTABLE::getClientes($empresa = Auth::user()->WORKINGCOMPANY, $perfil = Auth::user()->PBAUSERPROFILE, $user = Auth::user()->EMPLID);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\EMPLTABLE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +31,7 @@ class ProfileController extends Controller
         ]);
 
 
-        $user = User::findOrFail(Auth::user()->id);
+        $user = EMPLTABLE::findOrFail(Auth::user()->id);
         $user->name = $request->input('name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');

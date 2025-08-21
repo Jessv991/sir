@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Hamcrest\Core\HasToString;
 
 class NAT_SIR_LOGS extends Model
 {
@@ -74,15 +76,10 @@ class NAT_SIR_LOGS extends Model
 
     public static function updateAcces($userid, $latitude, $longitude, $idmenu, $ipAddress)
     {
-        $minDatetime = DB::connection('sqlsrv_log')
-            ->table('NAT_SIR_LOGS')
-            ->where('USER_', $userid)
-            ->min('DATETIME');
-
         $recid = DB::connection('sqlsrv_log')
             ->table('NAT_SIR_LOGS')
             ->where('USER_', $userid)
-            ->where('DATETIME', $minDatetime)
+            ->orderBy('DATETIME', 'asc')
             ->orderBy('RECID', 'asc')
             ->value('RECID');
 

@@ -42,6 +42,7 @@ class LoginController extends Controller
 
         // Si existe, iniciar sesión
         if ($user) {
+            //$remember = $request->filled('remember'); //sse pasará también a la función login esto
             Auth::login($user); // <-- inicia sesión manual
             LogController::setRegistroEntrada($credentials['email'], '0.1', '0.2', 1);
             $request->session()->regenerate();

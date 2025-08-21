@@ -17,10 +17,26 @@
         </div>
     @endif
 
-    <div class="row">
+    <div class="row d-flex justify-content-end">
 
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-12 col-md-8 col-lg-3 mb-5 d-flex align-items-center gap-2">
+
+            <div class="row w-100">
+                <div class="col-8 d-flex align-items-center justify-content-end">
+                    <p class="mb-0 fw-bold">Filtrar por empresa:</p>
+                </div>
+                <div class="col-4 d-flex align-items-center">
+                    <select class="form-select" aria-label="Default select example">
+                        <option value="nsl">NSL</option>
+                        <option value="red">UGO</option>
+                        <option value="prt">PRT</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        {{--  <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -36,7 +52,6 @@
             </div>
         </div>
 
-        <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
@@ -53,7 +68,6 @@
             </div>
         </div>
 
-        <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
@@ -80,7 +94,6 @@
             </div>
         </div>
 
-        <!-- Users -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
@@ -95,7 +108,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="row">
@@ -140,8 +153,6 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function() {
-                console.log($.fn.jquery);
-                console.log($.fn.DataTable);
 
                 this.datatableBuscarCliente =
                     $('#datatableBuscarCliente').DataTable({
