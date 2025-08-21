@@ -20,7 +20,7 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/new.css') }}" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
@@ -127,6 +127,11 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow">
+
+                    <button id="sidebarToggleTop" class="ms-2 btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ms-auto">
 
@@ -225,6 +230,30 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function detectarOrientacion() {
+            const esVertical = window.innerHeight > window.innerWidth;
+
+            // Establecer la clase para manejar la orientación
+            document.body.classList.toggle('vertical', esVertical);
+            document.body.classList.toggle('horizontal', !esVertical);
+
+            // Establecer orientación en una cookie para que PHP pueda usarla
+            document.cookie = `orientacion=${esVertical ? 'vertical' : 'horizontal'}; path=/;`;
+
+            // Recargar la página solo si la orientación ha cambiado
+            if (localStorage.getItem('orientacionGuardada') !== (esVertical ? 'vertical' : 'horizontal')) {
+                localStorage.setItem('orientacionGuardada', esVertical ? 'vertical' : 'horizontal');
+                location.reload(); // Recarga la página
+            }
+        }
+
+        // Ejecutar la detección en carga y cuando cambie la orientación
+        window.addEventListener('load', detectarOrientacion);
+        window.addEventListener('resize', detectarOrientacion);
+    </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">

@@ -26,18 +26,69 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    protected $data = [];
+
+    public function detectarTipoDispositivo()
     {
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+		if (preg_match('/(ipad|tablet|(android(?!.*mobile)))/i', $useragent)) {
+			$dispositivo = 'tablet';
+		} elseif (preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i', $useragent)) {
+			$dispositivo = 'mobile';
+		} else {
+			$dispositivo = 'desktop';
+		}
+
+        $this->data['tipo_dispositivo'] = $dispositivo;
+
+        $orientacion = isset($_COOKIE['orientacion']) ? $_COOKIE['orientacion'] : 'horizontal';
+
+        if($dispositivo === 'tablet'){
+            if($orientacion === 'vertical'){
+                $this->data['tipo_dispositivo'] = 'tablet';
+            }else{
+                $this->data['tipo_dispositivo'] = 'desktop';
+            }
+        }
+
+
         $users = EMPLTABLE::count();
 
         $widget = [
             'users' => $users,
         ];
 
-        return view('home', compact('widget'));
+        //dd($this->data['tipo_dispositivo']);
+
+        return view('home', array_merge(
+            compact('widget'),
+            $this->data
+        ));
     }
 
-    public function datatableBuscadorCliente(Request $request){
+    public function index()
+    {
+        $this->detectarTipoDispositivo();
+        $users = EMPLTABLE::count();
+
+        $widget = [
+            'users' => $users,
+        ];
+
+        //dd($this->data['tipo_dispositivo']);
+
+        return view('home', array_merge(
+            compact('widget'),
+            $this->data
+        ));
+    }
+
+    public function datatableBuscadorCliente(Request $request)
+    {
+
+        //dd($tipo_dispositivo);
+
+
         if ($request->ajax()) {
             $data = CUSTTABLE::getClientes($empresa = Auth::user()->WORKINGCOMPANY, $perfil = Auth::user()->PBAUSERPROFILE, $user = Auth::user()->EMPLID);
             return DataTables::of($data)
@@ -48,5 +99,6 @@ class HomeController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+        $this->detectarTipoDispositivo();
     }
 }
