@@ -231,7 +231,7 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         function detectarOrientacion() {
             const esVertical = window.innerHeight > window.innerWidth;
 
@@ -252,7 +252,7 @@
         // Ejecutar la detección en carga y cuando cambie la orientación
         window.addEventListener('load', detectarOrientacion);
         window.addEventListener('resize', detectarOrientacion);
-    </script>
+    </script> --}}
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

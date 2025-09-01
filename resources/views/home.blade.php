@@ -136,24 +136,18 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 fs-4 fw-bold text-secondary">{{ __('auth.buscador_cli') }}</h6>
                 </div>
-                <div class="card-body">
-                    <table id="datatableBuscarCliente" class="display table-responsive-xl">
+                <div class="card-body table-responsive">
+                    <table id="datatableBuscarCliente" class="display">
                         <thead>
                             <tr>
-                                @if ($tipo_dispositivo == 'desktop' || $tipo_dispositivo == 'tablet' || $tipo_dispositivo == 'mobile')
                                 <th class="w-5">{{ __('auth.seleccionar') }}</th>
                                 <th class="w-5">Axapta</th>
                                 <th class="w-25">{{ __('auth.name') }}</th>
-                                @endif
-                                @if ($tipo_dispositivo == 'desktop' || $tipo_dispositivo == 'tablet')
-                                    @if ($tipo_dispositivo == 'desktop')
-                                        <th class="w-25">{{ __('auth.business_name') }}</th>
-                                        <th class="w-10">{{ __('auth.city') }}</th>
-                                        <th class="w-10">{{ __('auth.postal_code') }}</th>
-                                        <th class="w-10">{{ __('auth.telephone') }}</th>
-                                    @endif
-                                    <th class="w-10 text-right">{{ __('auth.group') }}</th>
-                                @endif
+                                <th class="w-25">{{ __('auth.business_name') }}</th>
+                                <th class="w-10">{{ __('auth.city') }}</th>
+                                <th class="w-10">{{ __('auth.postal_code') }}</th>
+                                <th class="w-10">{{ __('auth.telephone') }}</th>
+                                <th class="w-10 text-right">{{ __('auth.group') }}</th>
                             </tr>
                         </thead>
                     </table>
@@ -166,129 +160,58 @@
 
                 const screenWidth = window.innerWidth;
 
-                if (screenWidth < 576) {
-                    this.datatableBuscarCliente =
-                        $('#datatableBuscarCliente').DataTable({
-                            iDisplayLength: 25,
-                            processing: false,
-                            autoWidth: false,
-                            ajax: "{{ route('datatableBuscadorCliente') }}",
-                            columns: [{
-                                    data: 'WEBLOGIN',
-                                    render: function(data, type, row) {
-                                        return `<button class="w-100 btn btn-primary btn-sm" data-id="seleccionar_cliente" data-empresa="far" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
+                this.datatableBuscarCliente =
+                    $('#datatableBuscarCliente').DataTable({
+                        iDisplayLength: 25,
+                        processing: false,
+                        autoWidth: false,
+                        ajax: "{{ route('datatableBuscadorCliente') }}",
+                        columns: [{
+                                data: 'WEBLOGIN',
+                                render: function(data, type, row) {
+                                    return `<button class="w-100 btn btn-primary btn-sm" data-id="seleccionar_cliente" data-empresa="far" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
+                                }
+                            },
+                            {
+                                data: 'AXAPTA'
+                            },
+                            {
+                                data: 'NOMBRE'
+                            },
+                            {
+                                data: 'NOMBRECOMERCIAL'
+                            },
+                            {
+                                data: 'CIUDAD'
+                            },
+                            {
+                                data: 'CODIGOPOSTAL'
+                            },
+                            {
+                                data: 'TELEFONO',
+                                render: function(data, type, row) {
+                                    if (`${row['TELEFONO']}`) {
+                                        return `<a href="#" onclick="window.location='callto:${row['TELEFONO']}'"><i class="fas fa-phone mr-1"></i> ${row['TELEFONO']}</a>`
+                                    } else {
+                                        return '';
                                     }
                                 },
-                                {
-                                    data: 'AXAPTA'
-                                },
-                                {
-                                    data: 'NOMBRE'
-                                },
-
-                            ],
-                            language: {
-                                url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json'
+                                width: '13%'
                             },
-                            orderCellsTop: true,
-                            initComplete: function() {
-                                $('#datatableBuscarCliente_filter label input').focus();
-                            }
-                        });
-                } else if (screenWidth < 992) {
-                    this.datatableBuscarCliente =
-                        $('#datatableBuscarCliente').DataTable({
-                            iDisplayLength: 25,
-                            processing: false,
-                            autoWidth: false,
-                            ajax: "{{ route('datatableBuscadorCliente') }}",
-                            columns: [{
-                                    data: 'WEBLOGIN',
-                                    render: function(data, type, row) {
-                                        return `<button class="w-100 btn btn-primary btn-sm" data-id="seleccionar_cliente" data-empresa="far" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
-                                    }
-                                },
-                                {
-                                    data: 'AXAPTA'
-                                },
-                                {
-                                    data: 'NOMBRE'
-                                },
-                                {
-                                    data: 'TELEFONO',
-                                    render: function(data, type, row) {
-                                        if (`${row['TELEFONO']}`) {
-                                            return `<a href="#" onclick="window.location='callto:${row['TELEFONO']}'"><i class="fas fa-phone mr-1"></i> ${row['TELEFONO']}</a>`
-                                        } else {
-                                            return '';
-                                        }
-                                    },
-                                    width: '13%'
-                                },
-
-                            ],
-                            language: {
-                                url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json'
+                            {
+                                data: 'AddressPrint',
+                                className: "text-right"
                             },
-                            orderCellsTop: true,
-                            initComplete: function() {
-                                $('#datatableBuscarCliente_filter label input').focus();
-                            }
-                        });
-                } else {
+                        ],
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json'
+                        },
+                        orderCellsTop: true,
+                        initComplete: function() {
+                            $('#datatableBuscarCliente_filter label input').focus();
+                        }
+                    });
 
-                    this.datatableBuscarCliente =
-                        $('#datatableBuscarCliente').DataTable({
-                            iDisplayLength: 25,
-                            processing: false,
-                            autoWidth: false,
-                            ajax: "{{ route('datatableBuscadorCliente') }}",
-                            columns: [{
-                                    data: 'WEBLOGIN',
-                                    render: function(data, type, row) {
-                                        return `<button class="w-100 btn btn-primary btn-sm" data-id="seleccionar_cliente" data-empresa="far" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
-                                    }
-                                },
-                                {
-                                    data: 'AXAPTA'
-                                },
-                                {
-                                    data: 'NOMBRE'
-                                },
-                                {
-                                    data: 'NOMBRECOMERCIAL'
-                                },
-                                {
-                                    data: 'CIUDAD'
-                                },
-                                {
-                                    data: 'CODIGOPOSTAL'
-                                },
-                                {
-                                    data: 'TELEFONO',
-                                    render: function(data, type, row) {
-                                        if (`${row['TELEFONO']}`) {
-                                            return `<a href="#" onclick="window.location='callto:${row['TELEFONO']}'"><i class="fas fa-phone mr-1"></i> ${row['TELEFONO']}</a>`
-                                        } else {
-                                            return '';
-                                        }
-                                    },
-                                    width: '13%'
-                                },
-                                {
-                                    data: 'AddressPrint',
-                                    className: "text-right"
-                                },
-                            ],
-                            language: {
-                                url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json'
-                            },
-                            orderCellsTop: true,
-                            initComplete: function() {
-                                $('#datatableBuscarCliente_filter label input').focus();
-                            }
-                        });
-                }
 
             });
         </script>
