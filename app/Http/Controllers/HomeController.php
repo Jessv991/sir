@@ -86,11 +86,15 @@ class HomeController extends Controller
     public function datatableBuscadorCliente(Request $request)
     {
 
-        //dd($tipo_dispositivo);
-
-
+        
+        
         if ($request->ajax()) {
-            $data = CUSTTABLE::getClientes($empresa = Auth::user()->WORKINGCOMPANY, $perfil = Auth::user()->PBAUSERPROFILE, $user = Auth::user()->EMPLID);
+            // Obtener los valores enviados desde AJAX
+            $empresa = $request->input('empresa');
+            $perfil = $request->input('perfil');
+            $user = $request->input('usuario');
+            
+            $data = CUSTTABLE::getClientes($empresa, $perfil, $user);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

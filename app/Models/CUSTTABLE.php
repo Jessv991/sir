@@ -391,7 +391,13 @@ class CUSTTABLE extends Model
                 c.zipcode as CODIGOPOSTAL,
                 c.DATAAREAID as EMPRESA,
                 c.CITY as CIUDAD,
-                UPPER(c.AddressPrint) as AddressPrint")
+                CASE 
+                WHEN ISNULL(LTRIM(RTRIM(c.AddressPrint)), '') = '' THEN 'PORTAVISUAL'
+                WHEN UPPER(c.AddressPrint) = 'RED' THEN 'UGO'
+                ELSE UPPER(c.AddressPrint)
+                END as AddressPrint"
+            )
+
             ->join('empltable as e', function ($join) {
                 $join->on('c.EMPLINT', '=', 'e.EMPLID')
                     ->where('e.dataareaid', '=', 'vir');
@@ -400,14 +406,14 @@ class CUSTTABLE extends Model
             ->where('c.CustGroup', '<>', 'BAJAS')
             ->whereIn('c.CustType', [1, 2, 3, 5, 53]);
 
-        // 📌 Filtro según $empresa
+        //Filtro según $empresa
         if ($empresa === 'todos') {
             $query->whereIn('c.DATAAREAID', ['red', 'nsl', 'prt']);
         } elseif ($empresa) {
             $query->where('c.DATAAREAID', $empresa);
         }
 
-        // 📌 Filtro según $perfil
+        // Filtro según $perfil
         if ($perfil === 'Comercial') {
             $query->where('c.EMPLINT', $user);
         } elseif ($perfil === 'ComerPrd') {
@@ -417,7 +423,7 @@ class CUSTTABLE extends Model
                 ->where('c.EMPLINT', $user);
         }
 
-        // 📌 Ejecutar y obtener resultados
+        //Ejecutar y obtener resultados
         return $query->get();
     }
 }

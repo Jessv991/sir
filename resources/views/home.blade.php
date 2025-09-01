@@ -26,7 +26,7 @@
                     <p class="mb-0 fw-bold">Filtrar por empresa:</p>
                 </div>
                 <div class="col-4 d-flex align-items-center">
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" id="empresa">
                         <option value="nsl" {{ strtolower(Auth::user()->WORKINGCOMPANY) == 'nsl' ? 'selected' : '' }}>NSL
                         </option>
                         <option value="red" {{ strtolower(Auth::user()->WORKINGCOMPANY) == 'red' ? 'selected' : '' }}>UGO
@@ -131,6 +131,78 @@
                 </div>
             </form>
         </div> --}}
+        <input type="hidden" id="perfil" value="{{ Auth::user()->PBAUSERPROFILE }}">
+        <input type="hidden" id="usuario" value="{{ Auth::user()->EMPLID }}">
+
+        <div class="modal fade" id="tuModalID" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-2">
+                                <p class="menu_style">Servicios</p>
+                                <p class="menu_style">Negocios</p>
+                                <p class="menu_style">Cierre Comercial</p>
+                                <p class="menu_style">Fidelización</p>
+                                <p class="menu_style">Administración</p>
+                            </div>
+                            <div class="col-10">
+                                <form method="POST" action="{{ route('profile.update') }}" autocomplete="off">
+                                    @csrf
+                                    @method('PUT')
+        
+                                    <div class="ps-lg-4">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group focused">
+                                                    <label class="form-label" for="name">{{ __('auth.full_name') }}</label>
+                                                    <input type="text" id="name" class="form-control" name="name"
+                                                        placeholder="{{ __('auth.full_name') }}"
+                                                        value="{{ old('name', Auth::user()->NAME) }}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group focused">
+                                                    <label class="form-label" for="email">Email</label>
+                                                    <input type="email" id="email" class="form-control" name="email"
+                                                        placeholder="Email" value="{{ old('email', Auth::user()->EMAIL) }}"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group focused">
+                                                    <label class="form-label" for="extension">{{ __('auth.extension') }}</label>
+                                                    <input type="text" id="extension" class="form-control" name="extension"
+                                                        placeholder="{{ __('auth.extension') }}"
+                                                        value="{{ old('extension', Auth::user()->PHONELOCAL) }}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group focused">
+                                                    <label class="form-label" for="sede">{{ __('auth.sede') }}</label>
+                                                    <input type="text" id="sede" class="form-control" name="sede"
+                                                        placeholder="{{ __('auth.sede') }}"
+                                                        value="{{ old('sede', Auth::user()->SEDE) }}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="col-lg-12 mb-3">
             <div class="card shadow mb-3">
                 <div class="card-header py-3">
@@ -159,17 +231,32 @@
             $(document).ready(function() {
 
                 const screenWidth = window.innerWidth;
+                var pag = 5;
 
-                this.datatableBuscarCliente =
+                if (screenWidth < 576) {
+                    pag = 2;
+                } else if (screenWidth < 992) {
+                    pag = 4;
+                }
+
+                const datatableBuscarCliente =
                     $('#datatableBuscarCliente').DataTable({
                         iDisplayLength: 25,
                         processing: false,
                         autoWidth: false,
-                        ajax: "{{ route('datatableBuscadorCliente') }}",
+                        ajax: {
+                            url: "{{ route('datatableBuscadorCliente') }}",
+                            type: "GET",
+                            data: function(d) {
+                                d.empresa = $('#empresa').val();
+                                d.perfil = $('#perfil').val();
+                                d.usuario = $('#usuario').val();
+                            }
+                        },
                         columns: [{
                                 data: 'WEBLOGIN',
                                 render: function(data, type, row) {
-                                    return `<button class="w-100 btn btn-primary btn-sm" data-id="seleccionar_cliente" data-empresa="far" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
+                                    return `<button class="w-100 btn btn-primary btn-sm seleccionar-cliente" data-id="seleccionar_cliente" data-empresa="far" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
                                 }
                             },
                             {
@@ -191,7 +278,7 @@
                                 data: 'TELEFONO',
                                 render: function(data, type, row) {
                                     if (`${row['TELEFONO']}`) {
-                                        return `<a href="#" onclick="window.location='callto:${row['TELEFONO']}'"><i class="fas fa-phone mr-1"></i> ${row['TELEFONO']}</a>`
+                                        return `<a href="tel:${row['TELEFONO']}" onclick="window.location='callto:${row['TELEFONO']}'"><i class="fas fa-phone mr-1"></i> ${row['TELEFONO']}</a>`
                                     } else {
                                         return '';
                                     }
@@ -204,13 +291,60 @@
                             },
                         ],
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json'
+                            url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json',
+                            paginate: {
+                                previous: "<<",
+                                next: ">>"
+                            }
                         },
                         orderCellsTop: true,
+                        pagingType: "simple_numbers", // Usa paginador con números simples
+                        drawCallback: function() {
+                            // Limita visualmente a 4 páginas usando jQuery
+                            const maxPagesToShow = pag;
+                            const $pagination = $('.dataTables_paginate .pagination');
+                            const $pageButtons = $pagination.find('li:not(.previous):not(.next)');
+
+                            if ($pageButtons.length > maxPagesToShow) {
+                                $pageButtons.hide();
+
+                                // Mostrar las primeras 4 (puedes adaptar esto para mostrar alrededor de la página actual)
+                                $pageButtons.slice(0, maxPagesToShow).show();
+                            }
+                        },
                         initComplete: function() {
                             $('#datatableBuscarCliente_filter label input').focus();
+                            // Cambiar las clases después de que se renderiza el DataTable
+                            $('#datatableBuscarCliente_info')
+                                .parent()
+                                .removeClass('col-md-5')
+                                .addClass('col-lg-5');
+
+                            $('#datatableBuscarCliente_paginate')
+                                .parent()
+                                .removeClass('col-md-7')
+                                .addClass('col-lg-7');
+
+                            $('#datatableBuscarCliente_length').parent()
+                                .removeClass('col-sm-12 col-md-6')
+                                .addClass('col-6 d-flex align-items-end');
+
+                            $('#datatableBuscarCliente_filter').parent()
+                                .removeClass('col-sm-12 col-md-6')
+                                .addClass('col-6');
+                            // Reordenar el contenido del label de "Mostrar registros"
+                            const $lengthLabel = $('#datatableBuscarCliente_length label');
+                            const $select = $lengthLabel.find('select');
+
+                            // Capturar el select y reconstruir el label como tú quieres
+                            $lengthLabel.html('Mostrar registros: ').append($select);
                         }
                     });
+
+                // Recargar tabla al cambiar empresa
+                $('#empresa').on('change', function() {
+                    datatableBuscarCliente.ajax.reload();
+                });
 
 
             });

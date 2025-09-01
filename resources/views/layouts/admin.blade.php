@@ -231,7 +231,7 @@
         </div>
     </div>
 
-    {{-- <script>
+    <script>
         function detectarOrientacion() {
             const esVertical = window.innerHeight > window.innerWidth;
 
@@ -252,13 +252,14 @@
         // Ejecutar la detección en carga y cuando cambie la orientación
         window.addEventListener('load', detectarOrientacion);
         window.addEventListener('resize', detectarOrientacion);
-    </script> --}}
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('js/jquery/selectClient.js') }}"></script>
 </body>
 
 </html>
