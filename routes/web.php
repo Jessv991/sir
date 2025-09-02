@@ -38,7 +38,6 @@ Route::get('/datatableBuscadorCliente', [HomeController::class, 'datatableBuscad
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
+Route::get('/about', 'AboutController@index')->name('about');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+

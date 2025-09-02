@@ -84,10 +84,7 @@ class HomeController extends Controller
     }
 
     public function datatableBuscadorCliente(Request $request)
-    {
-
-        
-        
+    {     
         if ($request->ajax()) {
             // Obtener los valores enviados desde AJAX
             $empresa = $request->input('empresa');

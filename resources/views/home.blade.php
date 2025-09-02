@@ -133,76 +133,7 @@
         </div> --}}
         <input type="hidden" id="perfil" value="{{ Auth::user()->PBAUSERPROFILE }}">
         <input type="hidden" id="usuario" value="{{ Auth::user()->EMPLID }}">
-
-        <div class="modal fade" id="tuModalID" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-2">
-                                <p class="menu_style">Servicios</p>
-                                <p class="menu_style">Negocios</p>
-                                <p class="menu_style">Cierre Comercial</p>
-                                <p class="menu_style">Fidelización</p>
-                                <p class="menu_style">Administración</p>
-                            </div>
-                            <div class="col-10">
-                                <form method="POST" action="{{ route('profile.update') }}" autocomplete="off">
-                                    @csrf
-                                    @method('PUT')
         
-                                    <div class="ps-lg-4">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group focused">
-                                                    <label class="form-label" for="name">{{ __('auth.full_name') }}</label>
-                                                    <input type="text" id="name" class="form-control" name="name"
-                                                        placeholder="{{ __('auth.full_name') }}"
-                                                        value="{{ old('name', Auth::user()->NAME) }}" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group focused">
-                                                    <label class="form-label" for="email">Email</label>
-                                                    <input type="email" id="email" class="form-control" name="email"
-                                                        placeholder="Email" value="{{ old('email', Auth::user()->EMAIL) }}"
-                                                        disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-        
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="form-group focused">
-                                                    <label class="form-label" for="extension">{{ __('auth.extension') }}</label>
-                                                    <input type="text" id="extension" class="form-control" name="extension"
-                                                        placeholder="{{ __('auth.extension') }}"
-                                                        value="{{ old('extension', Auth::user()->PHONELOCAL) }}" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group focused">
-                                                    <label class="form-label" for="sede">{{ __('auth.sede') }}</label>
-                                                    <input type="text" id="sede" class="form-control" name="sede"
-                                                        placeholder="{{ __('auth.sede') }}"
-                                                        value="{{ old('sede', Auth::user()->SEDE) }}" disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <div class="col-lg-12 mb-3">
             <div class="card shadow mb-3">
                 <div class="card-header py-3">

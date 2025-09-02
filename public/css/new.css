@@ -299,16 +299,11 @@
 
 
 .sidebar-dark hr.sidebar-divider {
-    border-top: 1px solid rgba(0, 160, 145, .15)
+    border-top: 1px solid rgb(0, 160, 144)
 }
 
 .sidebar-light hr.sidebar-divider {
     border-top: 1px solid #edf2f7
-}
-
-
-.sidebar-dark .sidebar-heading {
-    color: rgba(0, 160, 145, .4)
 }
 
 .sidebar-dark .nav-item .nav-link {

@@ -41,5 +41,6 @@ return [
     'remember_me' => 'Recuérdame',
     'login' => "Acceso",
     'password' => "Calve",
+    'about' => "Sobre el cliente",
 
 ];

@@ -41,5 +41,6 @@ return [
     'remember_me' => "Remember Me",
     'login' => "Login",
     'password' => "Password",
+    'about' => "About the client",
 
 ];
