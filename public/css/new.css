@@ -1,3 +1,45 @@
+.REEMBOLSO {
+    font-weight: bold;
+    color: red;
+    animation: blinkText 1s steps(2, start) infinite;
+    background-color: white; /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+}
+
+.REEMCHEQ {
+    font-weight: bold;
+    color: red;
+    animation: blinkText 1s steps(2, start) infinite;
+    background-color: white; /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+}
+
+.TALONPOR {
+    font-weight: bold;
+    color: red;
+    animation: blinkText 1s steps(2, start) infinite;
+    background-color: white; /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+}
+
+.REDUCREEMB {
+    font-weight: bold;
+    color: red;
+    animation: blinkText 1s steps(2, start) infinite;
+    background-color: white; /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+}
+
+@keyframes blinkText {
+    50%, 100% {
+        color: red;
+    }
+    80% {
+        color: transparent;
+    }
+}
+
+
 .text-primary {
     color: #4e73df !important;
 }
@@ -300,6 +342,21 @@
 
 .sidebar-dark hr.sidebar-divider {
     border-top: 1px solid rgb(0, 160, 144)
+}
+
+hr.sidebar-divider2 {
+    border-top: 2px solid rgb(0, 160, 144);
+}
+
+.vertical-line {
+  width: 2px;
+  height: 185px; /* o el alto que necesites */
+  background-color: rgb(0, 160, 144, 0.29); /* o el color que prefieras */
+  margin: 0 10px;
+}
+
+.apart_finanza{
+    background-color: rgb(0 160 144 / 6%);
 }
 
 .sidebar-light hr.sidebar-divider {

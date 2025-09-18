@@ -10,6 +10,8 @@ use Yajra\DataTables\DataTables;
 
 class AboutController extends Controller
 {
+    protected $data = [];
+
     public function index(Request $request)
     {
         $nombre = $request->query('nombre');
@@ -18,6 +20,11 @@ class AboutController extends Controller
         $weblogin = $request->query('weblogin');
         //dd($nombre, $empresa, $axapta, $weblogin);
 
-        return view('about');
+        $this->data['clienteInfo'] = CUSTTABLE::getInfoCliente($empresa, $axapta);
+        $this->data['menuCliente'] = CUSTTABLE::infoAdicionalCliente($empresa, $axapta);
+
+        //dd($this->data);
+
+        return view('about', $this->data);
     }
 }

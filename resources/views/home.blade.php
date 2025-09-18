@@ -187,7 +187,8 @@
                         columns: [{
                                 data: 'WEBLOGIN',
                                 render: function(data, type, row) {
-                                    return `<button class="w-100 btn btn-primary btn-sm seleccionar-cliente" data-id="seleccionar_cliente" data-empresa="far" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
+                                    //console.log(row);
+                                    return `<button class="w-100 btn btn-primary btn-sm seleccionar-cliente" data-id="seleccionar_cliente" data-empresa="${row['EMPRESA']}" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
                                 }
                             },
                             {
