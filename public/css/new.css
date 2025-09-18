@@ -1,3 +1,8 @@
+.devolucion {
+    font-weight: bold;
+    color: red;
+    animation: blinkText 1s steps(2, start) infinite;
+}
 .REEMBOLSO {
     font-weight: bold;
     color: red;

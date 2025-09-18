@@ -776,7 +776,7 @@ class CUSTTABLE extends Model
                             W.NOMBRECOMERCIAL as NOMBRECOMERCIAL,
                             NC.NATCUSTCLASSIFICATIONID,
                             NC.DESCRIPTION as ClasificacionDescripcion")
-                            
+
             ->leftJoin('Sir_Weblogin as W', function ($join) {
                 $join->on('c.weblogin', '=', 'W.WEBLOGIN')
                     ->whereColumn('c.dataareaid', 'W.dataareaid');
@@ -788,37 +788,57 @@ class CUSTTABLE extends Model
             ->where('c.DATAAREAID', $empresa)
             ->whereRaw('LTRIM(c.accountnum) = ?', [$user])
             ->first();
-    }
 
-    /* 
-    return DB::connection('sqlsrv_AXDB30')->table('custtable as c')
+
+        /* return DB::connection('sqlsrv_AXDB30')->table('custtable as c')
             ->selectRaw("
-            LTRIM(c.accountnum) as accountnum,
-            c.name,
-            c.address,
-            c.phone,
-            c.paymtermid,
-            c.CREDITMAX as CreditoMaximo,
-            c.MANDATORYCREDITLIMIT as limiteObligatorio,
-            c.CREDITRATING as CreditoTasacion,
-            c.vatnum,
-            c.email,
-            c.emplint,
-            c.zipcode,
-            c.city,
-            c.street,
-            $caseCountry,
-            W.WEBLOGINGROUP as TIPO,
-            W.NOMBRECOMERCIAL as NOMBRECOMERCIAL
-        ")
+                    LTRIM(c.accountnum) as accountnum,
+                    c.name,
+                    c.address,
+                    c.phone,
+                    c.paymtermid,
+                    c.CREDITMAX as CreditoMaximo,
+                    c.MANDATORYCREDITLIMIT as limiteObligatorio,
+                    c.CREDITRATING as CreditoTasacion,
+                    c.vatnum,
+                    c.email,
+                    c.emplint,
+                    c.zipcode,
+                    c.city,
+                    c.street,
+                    $caseCountry,
+                    W.WEBLOGINGROUP as TIPO,
+                    W.NOMBRECOMERCIAL as NOMBRECOMERCIAL
+                ")
             ->leftJoin('Sir_Weblogin as W', function ($join) {
                 $join->on('c.weblogin', '=', 'W.WEBLOGIN')
                     ->whereColumn('c.dataareaid', 'W.dataareaid');
             })
             ->where('c.DATAAREAID', $empresa)
             ->whereRaw('LTRIM(c.accountnum) = ?', [$user])
-            ->first();
-    */
+            ->first(); */
+    }
+
+    public static function getCheckDevoluciones($weblogin, $empresa, $year)
+    {
+        $impagado = DB::connection('sqlsrv_AXDB30') // O la conexión que uses para Axapta
+            ->table('CUSTTRANS as t')
+            ->join('CUSTTABLE as c', function ($join) {
+                $join->on('c.accountnum', '=', 't.accountnum')
+                    ->on('c.dataareaid', '=', 't.dataareaid');
+            })
+            ->where('t.dataareaid', $empresa)
+            ->where('c.weblogin', $weblogin)
+            ->whereRaw("t.txt LIKE '%DEV%'")
+            ->whereRaw("YEAR(t.transdate) >= ?", [$year])
+            ->whereRaw('(amountcur - Settleamountcur) <> 0')
+            ->groupBy('c.weblogin')
+            ->value(DB::raw('SUM(amountcur - Settleamountcur)')); // Devuelve el valor directamente
+
+        return (float) $impagado;
+    }
+
+
 
     //===============================================================================================================
 
@@ -829,64 +849,6 @@ class CUSTTABLE extends Model
             ->where('n.HIDEN', '<>', 1)
             ->where('n.EMPRESA', $empresa)
             ->count();
-    }
-
-    public static function getInfoEmplWeblogin($empresa, $weblogin)
-    {
-        $row = DB::connection('sqlsrv_AXDB30')->table('sir_weblogin as w')
-            ->selectRaw("
-            TOP 1
-            w.weblogin,
-            w.EmplIdProduc as EmpProd,
-            e1.NAME as EmplProdName,
-            w.EmplCM as EmplGestor,
-            e2.NAME as EmplGestorName,
-            w.EmplCM2 as EmplGestor2,
-            e3.NAME as EmplGestor2Name,
-            w.EmplId as EmplComercial,
-            e4.NAME as EmplComercialName,
-            w.EMPL as Empleados,
-            w.shops as Tiendas
-        ")
-            ->leftJoin('empltable as e1', function ($join) {
-                $join->on('e1.EMPLID', '=', 'w.EmplIdProduc')
-                    ->where('e1.DATAAREAID', '=', 'vir');
-            })
-            ->leftJoin('empltable as e2', function ($join) {
-                $join->on('e2.EMPLID', '=', 'w.EmplCM')
-                    ->where('e2.DATAAREAID', '=', 'vir');
-            })
-            ->leftJoin('empltable as e3', function ($join) {
-                $join->on('e3.EMPLID', '=', 'w.EmplCM2')
-                    ->where('e3.DATAAREAID', '=', 'vir');
-            })
-            ->leftJoin('empltable as e4', function ($join) {
-                $join->on('e4.EMPLID', '=', 'w.EmplId')
-                    ->where('e4.DATAAREAID', '=', 'vir');
-            })
-            ->where('w.WEBLOGIN', $weblogin)
-            ->where('w.DATAAREAID', $empresa)
-            ->first();
-
-        // Si no hay resultados, retornamos array vacío
-        if (!$row) {
-            return [];
-        }
-
-        // Formatear resultado en mismo array que tu versión original
-        return [
-            [
-                'EmplGestor'         => $row->EmplGestor,
-                'EmplGestorName'     => $row->EmplGestorName,
-                'EmplGestor2'        => $row->EmplGestor2,
-                'EmplGestor2Name'    => $row->EmplGestor2Name,
-                'EmplComercial'      => $row->EmplComercial,
-                'EmplComercialName'  => $row->EmplComercialName,
-                'Empleados'          => $row->Empleados,
-                'Tiendas'            => $row->Tiendas,
-                'EmplProdName'       => $row->EmplProdName,
-            ]
-        ];
     }
 
     public static function getInfoPath($empresa, $weblogin)

@@ -184,7 +184,7 @@
                                                         <input type="text" id="cod_client" class="form-control"
                                                             name="cod_client"
                                                             placeholder="{{ __('client.client_code') }}"
-                                                            value="{{ $clienteInfo->accountnum }}" disabled>
+                                                            value="{{ trim($clienteInfo->accountnum) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -194,7 +194,7 @@
                                                         <input type="text" id="nom_comercial" class="form-control"
                                                             name="nom_comercial"
                                                             placeholder="{{ __('client.trade_name') }}"
-                                                            value="{{ $menuCliente->NOMBRECOMERCIAL }}" disabled>
+                                                            value="{{ trim($menuCliente->NOMBRECOMERCIAL) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -203,7 +203,7 @@
                                                             for="nom_fiscal">{{ __('client.tax_name') }}</label>
                                                         <input type="text" id="nom_fiscal" class="form-control"
                                                             name="nom_fiscal" placeholder="{{ __('client.tax_name') }}"
-                                                            value="{{ $menuCliente->name }}" disabled>
+                                                            value="{{ trim($menuCliente->name) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -211,7 +211,7 @@
                                                         <label class="" for="cif">NIF/CIF</label>
                                                         <input type="text" id="cif" class="form-control"
                                                             name="cif" placeholder="NIF/CIF"
-                                                            value="{{ $menuCliente->vatnum }}" disabled>
+                                                            value="{{ trim($menuCliente->vatnum) }}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,10 +224,11 @@
                                                         <div class="input-group">
                                                             <input disabled placeholder="{{ __('auth.telephone') }}"
                                                                 type="tel" id="telefono" name="telefono"
-                                                                class="form-control" value="{{ $menuCliente->phone }}">
+                                                                class="form-control"
+                                                                value="{{ trim($menuCliente->phone) }}">
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-primary" type="button"
-                                                                    onclick="window.location.href='tel:{{ $menuCliente->phone }}'">
+                                                                    onclick="window.location.href='tel:{{ trim($menuCliente->phone) }}'">
                                                                     <i class="fas fa-phone"></i>
                                                                 </button>
                                                                 {{-- 
@@ -244,7 +245,7 @@
                                                         <label class=" text-uppercase" for="email">Email</label>
                                                         <input type="email" id="email" class="form-control"
                                                             name="email" placeholder="Email"
-                                                            value="{{ $menuCliente->email }}" disabled>
+                                                            value="{{ trim($menuCliente->email) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -253,10 +254,10 @@
                                                         <div class="input-group">
                                                             <input disabled placeholder="Página web" type="text"
                                                                 class="form-control" id="web" name="web"
-                                                                value="{{ $clienteInfo->webpages }}">
+                                                                value="{{ trim($clienteInfo->webpages) }}">
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-primary" type="button"
-                                                                    onclick="window.open('{{ $clienteInfo->webpages }}', '_blank')">
+                                                                    onclick="window.open('{{ trim($clienteInfo->webpages) }}', '_blank')">
                                                                     <i class="fas fa-globe"></i>
                                                                 </button>
 
@@ -276,7 +277,7 @@
                                                         <input type="text" id="forma_pago"
                                                             class="form-control {{ $claseCss }}" name="forma_pago"
                                                             placeholder="{{ __('client.payment') }}"
-                                                            value="{{ $clienteInfo->paymmode }}" disabled>
+                                                            value="{{ trim($clienteInfo->paymmode) }}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -288,7 +289,7 @@
                                                             for="email">{{ __('client.address') }}</label>
                                                         <input type="text" id="direccion" class="form-control"
                                                             name="direccion" placeholder="{{ __('client.address') }}"
-                                                            value="{{ $menuCliente->street }}" disabled>
+                                                            value="{{ trim($menuCliente->street) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -297,7 +298,7 @@
                                                             for="ciudad">{{ __('auth.city') }}</label>
                                                         <input type="text" id="ciudad" class="form-control"
                                                             name="ciudad" placeholder="{{ __('auth.city') }}"
-                                                            value="{{ $menuCliente->city }}" disabled>
+                                                            value="{{ trim($menuCliente->city) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -308,7 +309,7 @@
                                                             <input type="text" id="provincia" class="form-control"
                                                                 name="provincia"
                                                                 placeholder="{{ __('client.province') }}"
-                                                                value="{{ $menuCliente->county_name }}" disabled>
+                                                                value="{{ trim($menuCliente->county_name) }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -319,7 +320,7 @@
                                                         <input type="text" id="codigo_postal" class="form-control"
                                                             name="codigo_postal"
                                                             placeholder="{{ __('client.postal_code') }}"
-                                                            value="{{ $menuCliente->zipcode }}" disabled>
+                                                            value="{{ trim($menuCliente->zipcode) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -329,7 +330,7 @@
                                                         <input type="text" id="codigo_postal" class="form-control"
                                                             name="codigo_postal"
                                                             placeholder="{{ __('client.postal_code') }}"
-                                                            value="{{ $clienteInfo->country_name }}" disabled>
+                                                            value="{{ trim($clienteInfo->country_name) }}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -346,8 +347,7 @@
                                                                 <input type="text" id="formato_commercial"
                                                                     class="form-control" name="formato_commercial"
                                                                     placeholder="{{ __('client.commercial_format') }}"
-                                                                    value="{{ $clienteInfo->COMNAME }}"
-                                                                    disabled>
+                                                                    value="{{ trim($clienteInfo->COMNAME) }}" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -357,7 +357,7 @@
                                                                 <input type="text" id="categoria" class="form-control"
                                                                     name="categoria"
                                                                     placeholder="{{ __('client.category') }}"
-                                                                    value="{{ $menuCliente->NATCUSTCLASSIFICATIONID }}"
+                                                                    value="{{ trim($menuCliente->NATCUSTCLASSIFICATIONID) }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -371,7 +371,7 @@
                                                                 <input type="text" id="Gestor_personal"
                                                                     class="form-control" name="Gestor_personal"
                                                                     placeholder="{{ __('client.personal_manager') }}"
-                                                                    value="{{ old('Gestor_personal', Auth::user()->NAME) }}"
+                                                                    value="{{ trim($gestores['EmplGestorName']) }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -382,7 +382,7 @@
                                                                 <input type="text" id="Asesor_comercial"
                                                                     class="form-control" name="Asesor_comercial"
                                                                     placeholder="{{ __('client.commercial_advisor') }}"
-                                                                    value="{{ old('Asesor_comercial', Auth::user()->NAME) }}"
+                                                                    value="{{ trim($gestores['EmplComercialName']) }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -396,7 +396,7 @@
                                                                 <input type="text" id="Producto_comercial"
                                                                     class="form-control" name="Producto_comercial"
                                                                     placeholder="{{ __('client.commercial_product') }}"
-                                                                    value="{{ old('Producto_comercial', Auth::user()->NAME) }}"
+                                                                    value="{{ trim($gestores['EmplProdName']) }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -407,7 +407,7 @@
                                                                 <input type="text" id="Trab" class="form-control"
                                                                     name="Trab"
                                                                     placeholder="{{ __('client.personal_manager') }}"
-                                                                    value="{{ old('Trab', Auth::user()->NAME) }}"
+                                                                    value="{{ number_format($gestores['Tiendas'], 0, ',', '') }} {{ number_format($gestores['Empleados'], 1, '.', '') }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -432,7 +432,7 @@
                                                                 <input type="text" id="Capacidad_anual"
                                                                     class="form-control" name="Capacidad_anual"
                                                                     placeholder="{{ __('client.annual_capacity') }}"
-                                                                    value="{{ old('Capacidad_anual', Auth::user()->NAME) }}"
+                                                                    value="{{ number_format($potencialAnual, 2, ',', '.') }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -443,8 +443,7 @@
                                                                 <input type="text" id="Hasta_la_fecha"
                                                                     class="form-control" name="Hasta_la_fecha"
                                                                     placeholder="{{ __('client.to_date') }}"
-                                                                    value="{{ old('Hasta_la_fecha', Auth::user()->NAME) }}"
-                                                                    disabled>
+                                                                    value="{{ $mes_cierre }}" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -457,7 +456,7 @@
                                                                 <input type="text" id="Capacidad" class="form-control"
                                                                     name="Capacidad"
                                                                     placeholder="{{ __('client.capacity') }}"
-                                                                    value="{{ old('Capacidad', Auth::user()->NAME) }}"
+                                                                    value="{{ number_format($capacidades['totalCapacidad'], 2, ',', '.') }} €"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -468,7 +467,7 @@
                                                                 <input type="text" id="Consumido" class="form-control"
                                                                     name="Consumido"
                                                                     placeholder="{{ __('client.consumed') }}"
-                                                                    value="{{ old('Consumido', Auth::user()->NAME) }}"
+                                                                    value="{{ number_format($capacidades['totalConsumido'], 2, ',', '.') }} €"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -482,18 +481,35 @@
                                                                 <input type="text" id="Facturado" class="form-control"
                                                                     name="Facturado"
                                                                     placeholder="{{ __('client.invoiced') }}"
-                                                                    value="{{ old('Facturado', Auth::user()->NAME) }}"
+                                                                    value="{{ number_format($capacidades['totalFacturado'], 2, ',', '.') }} €"
                                                                     disabled>
                                                             </div>
                                                         </div>
+                                                        @php
+                                                            $fidelidad = '';
+                                                            if (!empty($capacidades['totalCapacidad']) && $capacidades['totalCapacidad'] != 0) 
+                                                            {
+                                                                $consumo = number_format(($capacidades['totalConsumido'] / $capacidades['totalCapacidad']) * 100, 2, ',', '.');
+                                                            } else 
+                                                            {
+                                                                $consumo = 0;
+                                                            }
+                                                        @endphp
+
+
+                                                        @if ($consumo > 50)
+                                                            @php $fidelidad = 'REEMBOLSO'; @endphp
+                                                        @endif
+
                                                         <div class="col-lg-6">
                                                             <div class="form-group focused">
                                                                 <label class=" text-uppercase"
                                                                     for="Producto_comercial">{{ __('client.consumed_loyalty') }}</label>
                                                                 <input type="text" id="Producto_comercial"
-                                                                    class="form-control" name="Producto_comercial"
+                                                                    class="form-control {{ $fidelidad }}"
+                                                                    name="Producto_comercial"
                                                                     placeholder="{{ __('client.consumed_loyalty') }}"
-                                                                    value="{{ old('Producto_comercial', Auth::user()->NAME) }}"
+                                                                    value="{{ $consumo }}%"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -564,6 +580,13 @@
                     </div>
 
                 </div>
+
+                @if ($devolucion > 0)
+                    <div class="card-profile-image mb-4">
+                        <span class="devolucion">DEVOLUCIÓN POR MONTO: {{ number_format($devolucion, 2, ',', '.') }}
+                            €</span>
+                    </div>
+                @endif
             </div>
 
         </div>
