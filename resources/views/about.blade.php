@@ -371,7 +371,7 @@
                                                                 <input type="text" id="Gestor_personal"
                                                                     class="form-control" name="Gestor_personal"
                                                                     placeholder="{{ __('client.personal_manager') }}"
-                                                                    value="{{ trim($gestores['EmplGestorName']) }}"
+                                                                    value="{{ trim($gestores['EmplGestor']) }} - {{ trim($gestores['EmplGestorName']) }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -382,11 +382,19 @@
                                                                 <input type="text" id="Asesor_comercial"
                                                                     class="form-control" name="Asesor_comercial"
                                                                     placeholder="{{ __('client.commercial_advisor') }}"
-                                                                    value="{{ trim($gestores['EmplComercialName']) }}"
+                                                                    value="{{ trim($gestores['EmplComercial']) }} - {{ trim($gestores['EmplComercialName']) }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    @php
+                                                        $empProd = trim($gestores['EmpProdName'] ?? '');
+                                                        $emplProd = trim($gestores['EmplProdName'] ?? '');
+                                                        $productoComercial = trim(
+                                                            $empProd . ($empProd && $emplProd ? ' - ' : '') . $emplProd,
+                                                        );
+                                                    @endphp
 
                                                     <div class="row mt-3">
                                                         <div class="col-lg-6">
@@ -396,8 +404,7 @@
                                                                 <input type="text" id="Producto_comercial"
                                                                     class="form-control" name="Producto_comercial"
                                                                     placeholder="{{ __('client.commercial_product') }}"
-                                                                    value="{{ trim($gestores['EmplProdName']) }}"
-                                                                    disabled>
+                                                                    value="{{ $productoComercial }}" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -407,7 +414,7 @@
                                                                 <input type="text" id="Trab" class="form-control"
                                                                     name="Trab"
                                                                     placeholder="{{ __('client.personal_manager') }}"
-                                                                    value="{{ number_format($gestores['Tiendas'], 0, ',', '') }} {{ number_format($gestores['Empleados'], 1, '.', '') }}"
+                                                                    value="{{ number_format($gestores['Tiendas'], 0, ',', '') }}/{{ number_format($gestores['Empleados'], 1, '.', '') }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -487,11 +494,19 @@
                                                         </div>
                                                         @php
                                                             $fidelidad = '';
-                                                            if (!empty($capacidades['totalCapacidad']) && $capacidades['totalCapacidad'] != 0) 
-                                                            {
-                                                                $consumo = number_format(($capacidades['totalConsumido'] / $capacidades['totalCapacidad']) * 100, 2, ',', '.');
-                                                            } else 
-                                                            {
+                                                            if (
+                                                                !empty($capacidades['totalCapacidad']) &&
+                                                                $capacidades['totalCapacidad'] != 0
+                                                            ) {
+                                                                $consumo = number_format(
+                                                                    ($capacidades['totalConsumido'] /
+                                                                        $capacidades['totalCapacidad']) *
+                                                                        100,
+                                                                    2,
+                                                                    ',',
+                                                                    '.',
+                                                                );
+                                                            } else {
                                                                 $consumo = 0;
                                                             }
                                                         @endphp
@@ -509,8 +524,7 @@
                                                                     class="form-control {{ $fidelidad }}"
                                                                     name="Producto_comercial"
                                                                     placeholder="{{ __('client.consumed_loyalty') }}"
-                                                                    value="{{ $consumo }}%"
-                                                                    disabled>
+                                                                    value="{{ $consumo }}%" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
