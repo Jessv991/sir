@@ -32,8 +32,9 @@ class AboutController extends Controller
             11 => 'Noviembre',
             12 => 'Diciembre'
         ];
+
         $nombre = $request->query('nombre');
-        $empresa = $request->query('empresa');
+        $this->data['empresa'] = $empresa = $request->query('empresa');
         $axapta = $request->query('axapta');
         $weblogin = $request->query('weblogin');
         $year = Carbon::now()->year;
@@ -41,13 +42,18 @@ class AboutController extends Controller
 
         $this->data['clienteInfo'] = CUSTTABLE::getInfoCliente($empresa, $axapta);
         $this->data['menuCliente'] = CUSTTABLE::infoAdicionalCliente($empresa, $axapta);
+        if (empty($this->data['menuCliente']->NOMBRECOMERCIAL)) {
+            $this->data['menuCliente']->NOMBRECOMERCIAL = $this->data['clienteInfo']->name;
+        }
+
         $this->data['devolucion'] = CUSTTABLE::getCheckDevoluciones($weblogin, $empresa, $year);
         $this->data['potencialAnual'] = NAT_BUDGETCLOSED::getPotencialAnual($weblogin);
         $mescalculo = NAT_BUDGETCLOSED::getMesCalculo($empresa);
         $this->data['mes_cierre'] = $mesesName[$mescalculo];
         $this->data['capacidades'] = PROCEDURES::getInfoClient($weblogin);
         $this->data['gestores'] = SIR_WEBLOGIN::getInfoEmplWeblogin($empresa, $weblogin);
-       /*  $potencial_mes_cierre = PROCEDURES::getPotencialMesCierre($empresa, $year, $weblogin, $mescalculo);
+        $this->data['shopsInfo'] = CUSTTABLE::getClientesStatus($weblogin, $empresa);
+        /*  $potencial_mes_cierre = PROCEDURES::getPotencialMesCierre($empresa, $year, $weblogin, $mescalculo);
         $realizado = PROCEDURES::getRealizadoAFecha($weblogin);
         $this->data['fidelidad'] = ( $realizado / $potencial_mes_cierre ) * 100; */
 
@@ -55,4 +61,5 @@ class AboutController extends Controller
 
         return view('about', $this->data);
     }
+
 }

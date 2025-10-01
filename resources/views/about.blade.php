@@ -6,7 +6,7 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-lg-10">
+        <div class="col-lg-10 w-100">
 
             <div class="card shadow mb-4">
 
@@ -25,143 +25,12 @@
                                 {{ __('client.general_information') }}
                             </button>
                         </li>
-                        <!-- botones informormes -->
-                        <li class="nav-item dropdown" role="informes">
-                            <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button"
-                                role="tab">
-                                {{ __('client.reports') }}
+                        <!-- botón servicios -->
+                        <li class="nav-item" role="servicios">
+                            <button class="nav-link" id="servicios-tab" data-bs-toggle="tab" data-bs-target="#servicios"
+                                type="button" role="tab">
+                                {{ __('client.services') }}
                             </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="dropdown-item" id="social_media-tab" data-bs-toggle="tab"
-                                        data-bs-target="#social_media" type="button" role="tab">
-                                        {{ __('client.social_media') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="online_presence-tab" data-bs-toggle="tab"
-                                        data-bs-target="#online_presence" type="button" role="tab">
-                                        {{ __('client.online_presence') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="fideliza_trim_analysis-tab" data-bs-toggle="tab"
-                                        data-bs-target="#fideliza_trim_analysis" type="button" role="tab">
-                                        {{ __('client.fideliza_trim_analysis') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="monthly_dashboards-tab" data-bs-toggle="tab"
-                                        data-bs-target="#monthly_dashboards" type="button" role="tab">
-                                        {{ __('client.monthly_dashboards') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="quarterly_dashboards-tab" data-bs-toggle="tab"
-                                        data-bs-target="#quarterly_dashboards" type="button" role="tab">
-                                        {{ __('client.quarterly_dashboards') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="annual_dashboards-tab" data-bs-toggle="tab"
-                                        data-bs-target="#annual_dashboards" type="button" role="tab">
-                                        {{ __('client.annual_dashboards') }}
-                                    </button>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- botones cierre comercial -->
-                        <li class="nav-item dropdown" role="cierre_comercial">
-                            <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button"
-                                role="tab">
-                                {{ __('client.commercial_closure') }}
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="dropdown-item" id="invoiced-tab" data-bs-toggle="tab"
-                                        data-bs-target="#invoiced" type="button" role="tab">
-                                        {{ __('client.invoiced') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="consumed-tab" data-bs-toggle="tab"
-                                        data-bs-target="#consumed" type="button" role="tab">
-                                        {{ __('client.consumed') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="frames_by_collection-tab" data-bs-toggle="tab"
-                                        data-bs-target="#frames_by_collection" type="button" role="tab">
-                                        {{ __('client.frames_by_collection') }}
-                                    </button>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- botones fidelización -->
-                        <li class="nav-item dropdown" role="fidelizacion">
-                            <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button"
-                                role="tab">
-                                {{ __('client.loyalty') }}
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="dropdown-item" id="contracts-tab" data-bs-toggle="tab"
-                                        data-bs-target="#contracts" type="button" role="tab">
-                                        {{ __('client.contracts') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="loyalty_plan-tab" data-bs-toggle="tab"
-                                        data-bs-target="#loyalty_plan" type="button" role="tab">
-                                        {{ __('client.loyalty_plan') }}
-                                    </button>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- botones Administración -->
-                        <li class="nav-item dropdown" role="administracion">
-                            <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button"
-                                role="tab">
-                                {{ __('client.administration') }}
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="dropdown-item" id="orders-tab" data-bs-toggle="tab"
-                                        data-bs-target="#orders" type="button" role="tab">
-                                        {{ __('client.orders') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="delivery_notes-tab" data-bs-toggle="tab"
-                                        data-bs-target="#delivery_notes" type="button" role="tab">
-                                        {{ __('client.delivery_notes') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="product_shipments-tab" data-bs-toggle="tab"
-                                        data-bs-target="#product_shipments" type="button" role="tab">
-                                        {{ __('client.product_shipments') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="invoices-tab" data-bs-toggle="tab"
-                                        data-bs-target="#invoices" type="button" role="tab">
-                                        {{ __('client.invoices') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="due_dates-tab" data-bs-toggle="tab"
-                                        data-bs-target="#due_dates" type="button" role="tab">
-                                        {{ __('client.due_dates') }}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" id="pending_items-tab" data-bs-toggle="tab"
-                                        data-bs-target="#pending_items" type="button" role="tab">
-                                        {{ __('client.pending_items') }}
-                                    </button>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
 
@@ -338,7 +207,7 @@
                                             <hr class="sidebar-divider2">
 
                                             <div class="row d-flex justify-content-center">
-                                                <div class="col-lg-5 pb-2">
+                                                <div class="col-lg-5 pb-2 ab_form">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group focused">
@@ -430,7 +299,7 @@
                                                     <hr class="sidebar-divider2">
                                                 </div>
 
-                                                <div class="col-lg-5 apart_finanza pb-2">
+                                                <div class="col-lg-5 apart_finanza ab_form pb-2">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group focused">
@@ -536,60 +405,285 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- informormes -->
-                        <div class="tab-pane fade" id="social_media" role="tabpanel">
-                            Contenido de "social_media"
-                        </div>
-                        <div class="tab-pane fade" id="online_presence" role="tabpanel">
-                            Contenido de "online_presence"
-                        </div>
-                        <div class="tab-pane fade" id="fideliza_trim_analysis" role="tabpanel">
-                            Contenido de "fideliza_trim_analysis"
-                        </div>
-                        <div class="tab-pane fade" id="monthly_dashboards" role="tabpanel">
-                            Contenido de "monthly_dashboards"
-                        </div>
-                        <div class="tab-pane fade" id="quarterly_dashboards" role="tabpanel">
-                            Contenido de "quarterly_dashboards"
-                        </div>
-                        <div class="tab-pane fade" id="annual_dashboards" role="tabpanel">
-                            Contenido de "annual_dashboards"
-                        </div>
-                        <!-- cierre comercial -->
-                        <div class="tab-pane fade" id="invoiced" role="tabpanel">
-                            Contenido de "invoiced"
-                        </div>
-                        <div class="tab-pane fade" id="consumed" role="tabpanel">
-                            Contenido de "consumed"
-                        </div>
-                        <div class="tab-pane fade" id="frames_by_collection" role="tabpanel">
-                            Contenido de "frames_by_collection"
-                        </div>
-                        <!-- cierre fidelización -->
-                        <div class="tab-pane fade" id="contracts" role="tabpanel">
-                            Contenido de "contracts"
-                        </div>
-                        <div class="tab-pane fade" id="loyalty_plan" role="tabpanel">
-                            Contenido de "loyalty_plan"
-                        </div>
-                        <!-- cierre Administración -->
-                        <div class="tab-pane fade" id="orders" role="tabpanel">
-                            Contenido de "orders"
-                        </div>
-                        <div class="tab-pane fade" id="delivery_notes" role="tabpanel">
-                            Contenido de "delivery_notes"
-                        </div>
-                        <div class="tab-pane fade" id="product_shipments" role="tabpanel">
-                            Contenido de "product_shipments"
-                        </div>
-                        <div class="tab-pane fade" id="invoices" role="tabpanel">
-                            Contenido de "invoices"
-                        </div>
-                        <div class="tab-pane fade" id="due_dates" role="tabpanel">
-                            Contenido de "due_dates"
-                        </div>
-                        <div class="tab-pane fade" id="pending_items" role="tabpanel">
-                            Contenido de "pending_items"
+                        <!-- Servicios -->
+                        <div class="tab-pane fade show" id="servicios" role="tabpanel">
+                            @php
+                                $shops = [];
+                                $x = 0;
+                                foreach ($shopsInfo as $k => $shop) {
+                                    if ($x > 0) {
+                                        $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->weblogin, $shop, $shops[0]->ownProduct);
+                                    } else {
+                                        $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->weblogin, $shop);
+                                    }
+                                    $x++;
+                                }
+                            @endphp
+
+                            <div class="d-flex justify-content-center p-md-5 ps-md-2 pe-md-2 sizeCard">
+                                <table class="table table-striped">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th scope="col">{{ __('client.services') }}</th>
+                                            @foreach($shops as $shop)
+                                                <th scope="col">
+                                                    {{ $shop->nameAlias }}
+                                                </th>
+                                            @endforeach
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Natural View / Ugosoft</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['6']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.sales_assistant') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['7']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.fideliza_use') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td>
+                                                    @if(isset($shop->services['13']['status']))
+                                                        <img src="{{ asset(getIcon($shop->services['13']['status'])) }}" alt="check" width="30" height="30">
+                                                    @else
+                                                        <img src="{{ asset(getIcon(0)) }}" alt="no data" width="30" height="30">
+                                                    @endif
+                                                </td>
+                                            @endforeach
+                                        </tr>
+
+                                        <tr>
+                                            <td>Natural TV</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['9']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.app_download') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['8']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.web_profile') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td>
+                                                    @if($shop->services['1']['status'] == 1)
+                                                        <a href="{{$shop->services['1']['url']}}" target="_blank">
+                                                            <img src="{{ asset(getIcon($shop->services['1']['status'])) }}" alt="check" width="30" height="30">
+                                                        </a>
+                                                    @else
+                                                        <img src="{{ asset(getIcon($shop->services['1']['status'])) }}" alt="check" width="30" height="30">
+                                                    @endif
+                                                </td>
+                                            @endforeach
+
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.web_images') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['2']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.web_services') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['3']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>Google My Business</td>
+                                            @foreach($shops as $shop)
+                                                <td>
+                                                    @if($shop->services['4']['status'] == 1)
+                                                        <a href="{{$shop->services['4']['url']}}" target="_blank">
+                                                            <img src="{{ asset(getIcon($shop->services['4']['status'])) }}" alt="check" width="30" height="30">
+                                                        </a>
+                                                    @else
+                                                        <img src="{{ asset(getIcon($shop->services['4']['status'])) }}" alt="check" width="30" height="30">
+                                                    @endif
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>Tour Virtual</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['5']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            {{-- Cabecera: nivel de servicio del shop principal --}}
+                                            <td>
+                                                {{ __('Servicio Community') }}
+                                                @php
+                                                    $niveles = [
+                                                        '100' => 'Basic',
+                                                        '123' => 'Profesional: FACEBOOK',
+                                                        '142' => 'Profesional: FACEBOOK + INSTAGRAM',
+                                                        '124' => 'Advanced: FACEBOOK',
+                                                        '131' => 'PROMO',
+                                                        '143' => 'Advanced: FACEBOOK INSTAGRAM',
+                                                        '153' => 'PREMIUM +',
+                                                    ];
+
+                                                    $nivelTexto = null;
+
+                                                    foreach ($niveles as $codigo => $texto) {
+                                                        if (isset($shops[0]->finantial[$codigo])) {
+                                                            $nivelTexto = $texto;
+                                                            break;
+                                                        }
+                                                    }
+                                                @endphp
+
+                                                @if($nivelTexto)
+                                                    - <b>{{ $nivelTexto }}</b>
+                                                @endif
+                                            </td>
+                                            @foreach($shops as $shop)
+                                                <td>
+                                                    @php
+                                                        $activo = false;
+                                                        foreach ($niveles as $codigo => $texto) {
+                                                            if (isset($shop->finantial[$codigo])) {
+                                                                $activo = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    @endphp
+
+                                                    <img src="{{ asset($activo ? 'assets/icon/check.png' : 'assets/icon/cancel.png') }}" width="30" height="30" alt="{{ $activo ? 'check' : 'cancel' }}">
+                                                </td>
+                                            @endforeach
+                                        </tr>
+
+                                        <tr>
+                                            <td>Microweb</td>
+                                            @foreach($shops as $shop)
+                                                @php
+                                                    $hasFinantial = isset($shop->finantial['149']) || isset($shop->finantial['150']);
+                                                @endphp
+                                                <td><img src="{{ asset(getIcon($hasFinantial ? 1 : 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>Natural BI</td>
+                                            @foreach($shops as $shop)
+                                                @php
+                                                    $hasFinantial = isset($shop->finantial['139']);
+                                                @endphp
+                                                <td><img src="{{ asset(getIcon($hasFinantial ? 1 : 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.macro_campaigns') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->macro)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.micro_campaigns') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->micro)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        {{-- <tr>
+                                            <td>{{ __('client.own_product_purchases') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['7']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr> --}}
+                                        <tr>
+                                            <td>Antonio Miro</td>
+                                            @foreach($shops as $shop)
+                                                @php
+                                                    $hasAntonioMiro  = isset($shop->ownProduct['ANTONIO MIRO']) && $shop->ownProduct['ANTONIO MIRO'] >= 10;
+                                                @endphp
+                                                <td><img src="{{ asset(getIcon($hasAntonioMiro ? 1 : 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>Miro Jeans</td>
+                                            @foreach($shops as $shop)
+                                                @php
+                                                    $MiroJeans  = isset($shop->ownProduct['MIROJEANS']) && $shop->ownProduct['MIROJEANS'] >= 10;
+                                                @endphp
+                                                <td><img src="{{ asset(getIcon($MiroJeans ? 1: 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>Be Natural / Be Happy</td>
+                                            @foreach($shops as $shop)
+                                                @php
+                                                    $BeNaturalBeHappy  = isset($shop->ownProduct['BE HAPPY']) 
+                                                    && isset($shop->ownProduct['BE NATURAL']) 
+                                                    && ($shop->ownProduct['BE HAPPY']+$shop->ownProduct['BE NATURAL']) >= 10;
+                                                @endphp
+                                                <td><img src="{{ asset(getIcon($BeNaturalBeHappy ? 1: 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>Monsine</td>
+                                            @foreach($shops as $shop)
+                                                @php
+                                                    $Monsine  = isset($shop->ownProduct['MIROJEANS']) && $shop->ownProduct['MONSINE'] >= 10;
+                                                @endphp
+                                                <td><img src="{{ asset(getIcon($Monsine ? 1: 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.financial_services') }}</td>
+                                            @foreach($shops as $shop)
+                                                @php
+                                                    $ServiciosFinancieros  = isset($shop->finantial['101'])
+                                                    ||isset($shop->finantial['121'])
+                                                    ||isset($shop->finantial['89']);
+                                                @endphp
+                                                <td><img src="{{ asset(getIcon($ServiciosFinancieros ? 1: 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.rgpd_implementation') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->rgpd === 1 ? 1: 0)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.rgpd_audit') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td>
+                                                    @if(isset($shop->services['12']['status']))
+                                                        <img src="{{ asset(getIcon($shop->services['12']['status'])) }}" alt="check" width="30" height="30">
+                                                    @else
+                                                        <img src="{{ asset(getIcon(0)) }}" alt="no data" width="30" height="30">
+                                                    @endif
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>WIVI</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->services['11']['status'])) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('client.fee') }}</td>
+                                            @foreach($shops as $shop)
+                                                <td><img src="{{ asset(getIcon($shop->cuota)) }}" alt="check" width="30" height="30"></td>
+                                            @endforeach
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
                         </div>
                     </div>
 

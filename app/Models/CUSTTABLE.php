@@ -838,6 +838,347 @@ class CUSTTABLE extends Model
         return (float) $impagado;
     }
 
+    public static function getClientesStatus($weblogin, $empresa)
+    {
+        $clientes = DB::connection('sqlsrv_AXDB30') // nombre de la conexión en config/database.php
+            ->table('Custtable as c')
+            ->join('empltable as e', function ($join) {
+                $join->on('c.EMPLINT', '=', 'e.EMPLID')
+                    ->where('e.dataareaid', '=', 'vir');
+            })
+            ->selectRaw("
+            LTRIM(c.ACCOUNTNUM) as AXAPTA,
+            c.NAMECOMER as NOMBRECOMERCIAL,
+            c.namealias,
+            c.NAME as NOMBRE,
+            c.weblogin as WEBLOGIN,
+            c.PHONE as TELEFONO,
+            c.zipcode as CODIGOPOSTAL,
+            c.DATAAREAID as EMPRESA,
+            UPPER(c.AddressPrint) as AddressPrint
+        ")
+            ->whereIn('c.DATAAREAID', [$empresa])
+            ->whereNotNull('c.BEGINDATE')
+            ->where('c.CustGroup', '<>', 'BAJAS')
+            ->where('c.WEBLOGIN', $weblogin)
+            ->whereIn('c.CustType', [1, 2, 3, 5, 53])
+            ->get();
+
+        // Convertir resultado a array asociativo como en el original
+        $datos = [];
+        foreach ($clientes as $cliente) {
+            $datos[$cliente->AXAPTA] = $cliente->namealias;
+        }
+
+        return $datos;
+    }
+
+
+    public static function getWebAndBusines($empresa, $cliente)
+    {
+        $query = "SELECT 
+            o.NATCUSTSERVICIOID,
+            s.name,
+            CASE s.NATCUSTSERVICIOID
+                WHEN '8' THEN 
+                    CASE ISNULL((
+                        SELECT TOP 1 MAX(SER.NAT_SINO)
+                        FROM CUSTTABLE CLI WITH (NOLOCK)
+                        INNER JOIN NATCUSTSERVICIOS SER WITH (NOLOCK)
+                            ON SER.DATAAREAID = CLI.DATAAREAID
+                            AND SER.CUSTACCOUNT = CLI.ACCOUNTNUM
+                            AND SER.NATCUSTSERVICIOID = S.NATCUSTSERVICIOID
+                            AND SER.NAT_SINO = 1
+                        WHERE CLI.DATAAREAID = c.DATAAREAID
+                            AND CLI.WEBLOGIN = c.WEBLOGIN
+                            AND CLI.BEGINDATE IS NOT NULL
+                            AND CLI.CustGroup IN ('ASOCIADOS', 'ASOCIADOS0')
+                            AND CLI.CustType IN (1, 2, 3, 5, 6)
+                    ), 2)
+                    WHEN 2 THEN 2
+                    ELSE '1'
+                    END
+                ELSE 
+                    CASE ISNULL(o.Nat_sino, '')
+                        WHEN 2 THEN 2
+                        WHEN '' THEN 2
+                        ELSE 1
+                    END
+            END AS Nat_sino,
+            o.Url
+        FROM CUSTTABLE c WITH (NOLOCK)
+        INNER JOIN natcustservicios o WITH (NOLOCK)
+            ON c.ACCOUNTNUM = o.CUSTACCOUNT
+            AND c.DATAAREAID = o.DATAAREAID
+        INNER JOIN Natcustserviciostable s
+            ON o.natcustservicioid = s.NATCUSTSERVICIOID
+        WHERE o.dataareaid = ?
+            AND LTRIM(o.custaccount) = ?
+            AND s.dataareaid = 'vi2'";
+
+            $string = (string) $cliente;
+
+        $rows = DB::connection('sqlsrv_AXDB30')->select($query, [$empresa, $string]);
+
+        $datos = [];
+        $hayDatos = false;
+
+        foreach ($rows as $row) {
+            $datos[$row->NATCUSTSERVICIOID] = [
+                'status' => $row->Nat_sino,
+                'name' => $row->name,
+                'url' => $row->Url,
+            ];
+            $hayDatos = true;
+        }
+
+        if (!$hayDatos) {
+            $datos[1]  = ['status' => 2, 'name' => "Ficha Web", 'url' => ""];
+            $datos[2]  = ['status' => 2, 'name' => "Imagenes Actualizadas", 'url' => ""];
+            $datos[3]  = ['status' => 2, 'name' => "Servicios Detallados", 'url' => ""];
+            $datos[4]  = ['status' => 2, 'name' => "Google My Business", 'url' => ""];
+            $datos[5]  = ['status' => 2, 'name' => "Tour Virtual", 'url' => ""];
+            $datos[6]  = ['status' => 2, 'name' => "Natural View / Ugosoft", 'url' => ""];
+            $datos[7]  = ['status' => 2, 'name' => "Asistente de Venta", 'url' => ""];
+            $datos[13] = ['status' => 2, 'name' => "Uso Fideliza", 'url' => ""];
+        }
+
+        return $datos;
+    }
+
+
+    public static function getFinantial($weblogin, $empresa)
+    {
+        $query = "
+        SELECT DISTINCT 
+            co.FROMDATE, 
+            co.TODATE, 
+            t.NAT_CONTRATOSTYPEID, 
+            t.NAT_CONTRATOSNAME
+        FROM Nat_contratosTable co
+        INNER JOIN CUSTTABLE c ON co.DATAAREAID = c.DATAAREAID
+            AND co.CUSTACCOUNT = c.ACCOUNTNUM
+        INNER JOIN Nat_ContratosType t ON t.DATAAREAID = 'vi3'
+            AND t.NAT_CONTRATOSTYPEID = co.NAT_CONTRATOSTYPEID
+        WHERE co.NAT_CONTRATOSTYPEID IN (
+            '101','89','121','100','123','124','131','142','143','139','95','96','149','150','153'
+        )
+        AND LTRIM(c.WEBLOGIN) = ?
+        AND c.BEGINDATE IS NOT NULL
+        AND c.CustGroup IN ('ASOCIADOS', 'ASOCIADOS0')
+        AND c.DATAAREAID = ?
+        AND (
+            co.FROMDATE <= GETDATE() OR co.FROMDATE = ''
+        )
+        AND (
+            co.TODATE >= GETDATE() OR co.TODATE = ''
+        )";
+
+        $rows = DB::connection('sqlsrv_AXDB30')->select($query, [$weblogin, $empresa]);
+
+        $datos = [];
+
+        if (!empty($rows)) {
+            foreach ($rows as $row) {
+                $datos[$row->NAT_CONTRATOSTYPEID] = $row->NAT_CONTRATOSNAME;
+            }
+        }
+
+        return $datos;
+    }
+
+    public static function setRGPD($empresa, $cliente)
+    {
+        $string= (string) $cliente;
+        // 1. Obtener el VATNUM desde CUSTTABLE
+        $vatnum = DB::connection('sqlsrv_AXDB30')
+            ->table('custtable')
+            ->where('dataareaid', $empresa)
+            ->whereRaw('LTRIM(accountnum) = ?', [$string])
+            ->value('vatnum');
+
+        if (!$vatnum || trim($vatnum) === '') {
+            return 2; // No hay VATNUM → RGPD no aceptado
+        }
+
+        // 2. Buscar contratos de tipo '95' en otra empresa con ese VATNUM
+        $query = "
+        SELECT DISTINCT co.FROMDATE, co.TODATE, t.NAT_CONTRATOSTYPEID, t.NAT_CONTRATOSNAME
+        FROM Nat_contratosTable co
+        INNER JOIN CUSTTABLE c ON co.DATAAREAID = c.DATAAREAID
+            AND co.CUSTACCOUNT = c.ACCOUNTNUM
+        INNER JOIN Nat_ContratosType t ON t.DATAAREAID = 'vi3'
+            AND t.NAT_CONTRATOSTYPEID = co.NAT_CONTRATOSTYPEID
+        WHERE co.NAT_CONTRATOSTYPEID IN ('95')
+            AND LTRIM(c.VATNUM) = ?
+            AND c.BEGINDATE IS NOT NULL
+            AND c.CustGroup IN ('ASOCIADOS', 'ASOCIADOS0')
+            AND c.DATAAREAID = 'nsl'
+            AND (co.FROMDATE <= GETDATE() OR co.FROMDATE = '')
+            AND (co.TODATE >= GETDATE() OR co.TODATE = '')";
+
+        $result = DB::connection('sqlsrv_AXDB30')->select($query, [$vatnum]);
+
+        return count($result) > 0 ? 1 : 2;
+    }
+
+    public static function setCuota($empresa, $weblogin, $cliente)
+    {
+        $string= (string) $cliente;
+
+        $rows = DB::connection('sqlsrv_AXDB30')
+            ->table('custtable')
+            ->select(DB::raw('LTRIM(accountnum) as id'), 'custgroup')
+            ->where('dataareaid', $empresa)
+            ->whereRaw('LTRIM(weblogin) = ?', [$weblogin])
+            ->get();
+
+            
+            foreach ($rows as $row) {
+            if ($row->id === $string) {
+                if (trim($row->custgroup) === 'ASOCIADOS0') {
+                    return 2;
+                }
+            }
+        }
+
+        return 1;
+    }
+
+    public static function setCRM($empresa, $weblogin)
+    {
+        // Elegir conexión según empresa
+        $connection = ($empresa === 'red') ? 'sqlsrv_red' : 'sqlsrv_default';
+
+        $query = "
+        SELECT COUNT(*) AS contador
+        FROM MKT_CampanasOK
+        WHERE mkt_data BETWEEN DATEADD(DAY, -30, GETDATE()) AND GETDATE()
+          AND WEBLOGIN = ?";
+
+        $result = DB::connection($connection)->selectOne($query, [$weblogin]);
+
+        if ($result && $result->contador > 0) {
+            return 1;
+        }
+
+        return 2;
+    }
+
+    public static function setStatusCRM($empresa, $weblogin, $cliente)
+    {
+        // Define el valor fijo para DATAAREAID según empresa
+        $dataAreaId = ($empresa === 'red') ? 'RED' : 'NSL';
+
+        // Construimos el query en SQL con placeholders
+        $sql = "
+        SELECT DISTINCT 
+            LOWER(C.DATAAREAID) AS EMPRESA,
+            LOWER(C.WEBLOGIN) AS WEBLOGIN,
+            UPPER(LTRIM(C.ACCOUNTNUM)) AS CLIENTE,
+            MAX(CASE ISNULL(TIE_Baja, 'S')
+                WHEN 'S' THEN 'NO'
+                ELSE 'SI'
+            END) AS SERVICIO_SN,
+            'FIDELIZA' AS SERVICIO_NOMBRE
+        FROM Custtable C WITH (NOLOCK)
+        LEFT JOIN CRM.DBO.TIENDA T WITH (NOLOCK)
+            ON T.WEBLOGIN COLLATE Modern_Spanish_CI_AI = C.WEBLOGIN
+            AND T.TIE_CODIGOAXAPTA COLLATE Modern_Spanish_CI_AI = LTRIM(C.ACCOUNTNUM)
+        WHERE C.DATAAREAID = ?
+            AND C.BEGINDATE IS NOT NULL
+            AND C.CustGroup IN ('ASOCIADOS','ASOCIADOS0')
+            AND C.CustType IN (1,2,3,5,6)
+            AND C.WEBLOGIN = ?
+            AND LTRIM(C.ACCOUNTNUM) = ?
+        GROUP BY C.DATAAREAID, C.WEBLOGIN, C.ACCOUNTNUM;";
+
+        // Usa la conexión que necesites (ajusta el nombre si es otro)
+        $db = DB::connection('sqlsrv_AXDB30');
+
+        $string= (string) $cliente;
+
+        $result = $db->select($sql, [$dataAreaId, $weblogin, $string]);
+
+        // Itera sobre resultados y devuelve según valor
+        foreach ($result as $row) {
+            if (strtoupper($row->SERVICIO_SN) === 'SI') {
+                return 1;
+            } else {
+                return 2;
+            }
+        }
+
+        // Si no hubo resultados, podrías decidir qué devolver
+        return 2;
+    }
+
+    public static function setOwnProduct($empresa, $weblogin)
+    {
+        $sql = "
+        SELECT SUM(Qty) AS total, coleccion
+        FROM VentasFacturadas
+        WHERE Empresa = ?
+          AND weblogin = ?
+          AND Fecha >= DATEADD(MM, -12, GETDATE())
+          AND Coleccion IN ('ANTONIO MIRO', 'MIROJEANS', 'BE NATURAL', 'BE HAPPY', 'MONSINE')
+          AND NATidFamilia IN ('SOL', 'MONTURAS')
+        GROUP BY coleccion";
+
+        $db = DB::connection('sqlsrv_AXDB30'); // Ajusta el nombre de conexión si hace falta
+
+        $result = $db->select($sql, [$empresa, $weblogin]);
+
+        $datos = [];
+        foreach ($result as $row) {
+            $datos[$row->coleccion] = $row->total;
+        }
+
+        return $datos;
+    }
+
+    public static function setMacro($empresa, $weblogin)
+    {
+        $sql = "
+        SELECT c.natcustcaracvalor
+        FROM NatCustCaracItem c WITH (NOLOCK)
+        INNER JOIN Custtable a WITH (NOLOCK)
+            ON c.dataareaid = a.dataareaid
+            AND c.custAccount = a.accountnum
+        INNER JOIN NatCustCaracItem s WITH (NOLOCK)
+            ON s.dataareaid = c.dataareaid
+            AND s.Natcustcarac = c.Natcustcarac
+            AND s.custAccount = c.custAccount
+        WHERE c.dataareaid = ?
+          AND a.weblogin = ?
+          AND s.Natcustcarac = 'CAMPUBLI'
+          AND s.natcustcaracvalor = 'SI'";
+
+        $db = DB::connection('sqlsrv_AXDB30'); // Ajusta el nombre de la conexión
+
+        $result = $db->select($sql, [$empresa, $weblogin]);
+
+        if (!empty($result) && isset($result[0]->natcustcaracvalor) && $result[0]->natcustcaracvalor === 'SI') {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    public static function setMicro($empresa, $weblogin)
+    {
+        $sql = "SELECT TOP 1 Empresa FROM [VentasFactAlba_Micros] WHERE empresa = ? AND weblogin = ?";
+
+        $db = DB::connection('sqlsrv_AXDB30'); // Ajusta el nombre de la conexión según corresponda
+
+        $result = $db->select($sql, [$empresa, $weblogin]);
+
+        if (!empty($result) && isset($result[0]->Empresa) && $result[0]->Empresa == $empresa) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
 
 
     //===============================================================================================================
@@ -894,22 +1235,20 @@ class CUSTTABLE extends Model
         })->toArray();
     }
 
-    public static function getVisitasCliente($cliente, $empresa, $year)
+    /* public static function getVisitasCliente($cliente, $empresa, $year)
     {
-        $codigo    = $empresa . $cliente;
-        $lastYear  = $year - 1;
+        $codigo = $empresa . $cliente;
+        $lastYear = $year - 1;
 
-        return DB::connection('mysql_sugar') // o el nombre real de tu conexión a SugarCRM
-            ->table('accounts as a')
-            ->join('meetings as m', 'a.id', '=', 'm.parent_id')
-            ->select([
-                'm.date_start as fechaInicio',
-                'm.parent_id',
-                'm.status'
-            ])
+        $result = DB::connection('sqlsrv_AXDB30') // nombre de la conexión personalizada
+            ->table('meetings as m')
+            ->join('accounts as a', 'a.id', '=', 'm.parent_id')
+            ->select('m.date_start as fechaInicio', 'm.parent_id', 'm.status')
             ->where('m.parent_id', 'like', '%' . $codigo . '%')
             ->whereRaw("YEAR(m.date_start) >= ?", [$lastYear])
-            ->orderByDesc('m.date_start')
+            ->orderBy('m.date_start', 'desc')
             ->get();
-    }
+
+        return $result;
+    } */
 }

@@ -1,49 +1,78 @@
 .devolucion {
     font-weight: bold;
     color: red;
-    animation: blinkText 1s steps(2, start) infinite;
+    animation: blinkText 1.5s steps(2, start) infinite;
 }
+
 .REEMBOLSO {
     font-weight: bold;
     color: red;
-    animation: blinkText 1s steps(2, start) infinite;
-    background-color: white; /* Evita parpadeo del fondo */
-    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+    animation: blinkText 1.5s steps(2, start) infinite;
+    background-color: white;
+    /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;
+    /* Evita parpadeo del borde */
 }
 
 .REEMCHEQ {
     font-weight: bold;
     color: red;
-    animation: blinkText 1s steps(2, start) infinite;
-    background-color: white; /* Evita parpadeo del fondo */
-    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+    animation: blinkText 1.5s steps(2, start) infinite;
+    background-color: white;
+    /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;
+    /* Evita parpadeo del borde */
 }
 
 .TALONPOR {
     font-weight: bold;
     color: red;
-    animation: blinkText 1s steps(2, start) infinite;
-    background-color: white; /* Evita parpadeo del fondo */
-    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+    animation: blinkText 1.5s steps(2, start) infinite;
+    background-color: white;
+    /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;
+    /* Evita parpadeo del borde */
 }
 
 .REDUCREEMB {
     font-weight: bold;
     color: red;
-    animation: blinkText 1s steps(2, start) infinite;
-    background-color: white; /* Evita parpadeo del fondo */
-    border: 1px solid #ccc;  /* Evita parpadeo del borde */
+    animation: blinkText 1.5s steps(2, start) infinite;
+    background-color: white;
+    /* Evita parpadeo del fondo */
+    border: 1px solid #ccc;
+    /* Evita parpadeo del borde */
 }
 
 @keyframes blinkText {
-    50%, 100% {
+
+    60%,
+    100% {
         color: red;
     }
+
     80% {
         color: transparent;
     }
 }
 
+/* .w_intern {
+    width: 95% !important;
+}
+
+.w_intern1 {
+    width: 197px !important;
+} */
+
+.col-lg-5.ab_form {
+    flex: 0 0 auto;
+    width: 45.666667% !important;
+}
+
+.table-primary {
+    --bs-table-color: #fff !important;
+    --bs-table-bg: #00a091 !important;
+}
 
 .text-primary {
     color: #4e73df !important;
@@ -205,10 +234,12 @@
 }
 
 .sidebar .nav-item .collapse {
-    position: absolute;
-    left: calc(6.5rem + 1.5rem / 2);
+    position: relative;
+    left: 0;
     z-index: 1;
-    top: 2px
+    top: 0;
+    -webkit-animation: none;
+    animation: none
 }
 
 .sidebar .nav-item .collapse .collapse-inner {
@@ -354,13 +385,15 @@ hr.sidebar-divider2 {
 }
 
 .vertical-line {
-  width: 2px;
-  height: 185px; /* o el alto que necesites */
-  background-color: rgb(0, 160, 144, 0.29); /* o el color que prefieras */
-  margin: 0 10px;
+    width: 2px;
+    height: 185px;
+    /* o el alto que necesites */
+    background-color: rgb(0, 160, 144, 0.29);
+    /* o el color que prefieras */
+    margin: 0 10px;
 }
 
-.apart_finanza{
+.apart_finanza {
     background-color: rgb(0 160 144 / 6%);
 }
 
@@ -947,8 +980,9 @@ body.sidebar-toggled footer.sticky-footer {
     }
 
     .sidebar .nav-item .nav-link span {
-        font-size: .85rem;
-        display: inline
+        font-size: 12px;
+        display: inline;
+        font-weight: bold;
     }
 
     .sidebar .nav-item .nav-link[data-toggle=collapse]::after {
@@ -984,6 +1018,13 @@ body.sidebar-toggled footer.sticky-footer {
     }
 
     .sidebar.toggled .nav-item .collapse {
+        position: relative;
+        left: 0;
+        z-index: 1;
+        top: 0;
+        -webkit-animation: none;
+        animation: none
+            /* 
         position: absolute;
         left: calc(6.5rem + 1.5rem / 2);
         z-index: 1;
@@ -994,6 +1035,7 @@ body.sidebar-toggled footer.sticky-footer {
         animation-duration: .2s;
         -webkit-animation-timing-function: cubic-bezier(.18, 1.25, .4, 1);
         animation-timing-function: cubic-bezier(.18, 1.25, .4, 1)
+        */
     }
 
     .sidebar.toggled .nav-item .collapse .collapse-inner {
@@ -1111,5 +1153,15 @@ body.sidebar-toggled footer.sticky-footer {
     .navbar-expand-xl .navbar-nav .nav-link {
         padding-right: .5rem;
         padding-left: .5rem
+    }
+
+    .sizeCard {
+        max-height: 478px;
+        overflow-y: auto;
+    }
+
+    .sizeCard {
+        max-height: 478px;
+        overflow-y: auto;
     }
 }
