@@ -11,7 +11,7 @@
             <div class="card shadow mb-4">
 
                 <div class="card-profile-image mt-4">
-                    <h2>{{ $menuCliente->NOMBRECOMERCIAL }}</h2>
+                    <h2>{{ $clienteInfo->NOMBRECOMERCIAL }}</h2>
                 </div>
 
                 <div class="card-body">
@@ -63,7 +63,7 @@
                                                         <input type="text" id="nom_comercial" class="form-control"
                                                             name="nom_comercial"
                                                             placeholder="{{ __('client.trade_name') }}"
-                                                            value="{{ trim($menuCliente->NOMBRECOMERCIAL) }}" disabled>
+                                                            value="{{ trim($clienteInfo->NOMBRECOMERCIAL) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -72,7 +72,7 @@
                                                             for="nom_fiscal">{{ __('client.tax_name') }}</label>
                                                         <input type="text" id="nom_fiscal" class="form-control"
                                                             name="nom_fiscal" placeholder="{{ __('client.tax_name') }}"
-                                                            value="{{ trim($menuCliente->name) }}" disabled>
+                                                            value="{{ trim($clienteInfo->name) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -80,7 +80,7 @@
                                                         <label class="" for="cif">NIF/CIF</label>
                                                         <input type="text" id="cif" class="form-control"
                                                             name="cif" placeholder="NIF/CIF"
-                                                            value="{{ trim($menuCliente->vatnum) }}" disabled>
+                                                            value="{{ trim($clienteInfo->vatnum) }}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -94,15 +94,15 @@
                                                             <input disabled placeholder="{{ __('auth.telephone') }}"
                                                                 type="tel" id="telefono" name="telefono"
                                                                 class="form-control"
-                                                                value="{{ trim($menuCliente->phone) }}">
+                                                                value="{{ trim($clienteInfo->phone) }}">
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-primary" type="button"
-                                                                    onclick="window.location.href='tel:{{ trim($menuCliente->phone) }}'">
+                                                                    onclick="window.location.href='tel:{{ trim($clienteInfo->phone) }}'">
                                                                     <i class="fas fa-phone"></i>
                                                                 </button>
                                                                 {{-- 
                                                                 <button class="btn btn-primary" type="button"
-                                                                    onclick="window.location='callto:{{ $menuCliente->phone }}'"><i
+                                                                    onclick="window.location='callto:{{ $clienteInfo->phone }}'"><i
                                                                         class="fas fa-phone"></i></button>
                                                                 --}}
                                                             </div>
@@ -114,7 +114,7 @@
                                                         <label class=" text-uppercase" for="email">Email</label>
                                                         <input type="email" id="email" class="form-control"
                                                             name="email" placeholder="Email"
-                                                            value="{{ trim($menuCliente->email) }}" disabled>
+                                                            value="{{ trim($clienteInfo->email) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -158,7 +158,7 @@
                                                             for="email">{{ __('client.address') }}</label>
                                                         <input type="text" id="direccion" class="form-control"
                                                             name="direccion" placeholder="{{ __('client.address') }}"
-                                                            value="{{ trim($menuCliente->street) }}" disabled>
+                                                            value="{{ trim($clienteInfo->street) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -167,7 +167,7 @@
                                                             for="ciudad">{{ __('auth.city') }}</label>
                                                         <input type="text" id="ciudad" class="form-control"
                                                             name="ciudad" placeholder="{{ __('auth.city') }}"
-                                                            value="{{ trim($menuCliente->city) }}" disabled>
+                                                            value="{{ trim($clienteInfo->city) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -178,7 +178,7 @@
                                                             <input type="text" id="provincia" class="form-control"
                                                                 name="provincia"
                                                                 placeholder="{{ __('client.province') }}"
-                                                                value="{{ trim($menuCliente->county_name) }}" disabled>
+                                                                value="{{ trim($clienteInfo->county_name) }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -189,7 +189,7 @@
                                                         <input type="text" id="codigo_postal" class="form-control"
                                                             name="codigo_postal"
                                                             placeholder="{{ __('client.postal_code') }}"
-                                                            value="{{ trim($menuCliente->zipcode) }}" disabled>
+                                                            value="{{ trim($clienteInfo->zipcode) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
@@ -226,7 +226,7 @@
                                                                 <input type="text" id="categoria" class="form-control"
                                                                     name="categoria"
                                                                     placeholder="{{ __('client.category') }}"
-                                                                    value="{{ trim($menuCliente->NATCUSTCLASSIFICATIONID) }}"
+                                                                    value="{{ trim($clienteInfo->NATCUSTCLASSIFICATIONID) }}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -412,9 +412,9 @@
                                 $x = 0;
                                 foreach ($shopsInfo as $k => $shop) {
                                     if ($x > 0) {
-                                        $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->weblogin, $shop, $shops[0]->ownProduct);
+                                        $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->WEBLOGIN, $shop, $shops[0]->ownProduct);
                                     } else {
-                                        $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->weblogin, $shop);
+                                        $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->WEBLOGIN, $shop);
                                     }
                                     $x++;
                                 }
@@ -633,7 +633,7 @@
                                             <td>Monsine</td>
                                             @foreach($shops as $shop)
                                                 @php
-                                                    $Monsine  = isset($shop->ownProduct['MIROJEANS']) && $shop->ownProduct['MONSINE'] >= 10;
+                                                    $Monsine  = isset($shop->ownProduct['MONSINE']) && $shop->ownProduct['MONSINE'] >= 10;
                                                 @endphp
                                                 <td><img src="{{ asset(getIcon($Monsine ? 1: 0)) }}" alt="check" width="30" height="30"></td>
                                             @endforeach
@@ -683,8 +683,111 @@
                                 </table>
                             </div>
 
+                            <div class="tab-pane fade show" id="servicios" role="tabpanel">
+                                @php
+                                    $shops = [];
+                                    $x = 0;
+                                    foreach ($shopsInfo as $k => $shop) {
+                                        if ($x > 0) {
+                                            $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->WEBLOGIN, $shop, $shops[0]->ownProduct);
+                                        } else {
+                                            $shops[$x] = new \App\class\CUSTTABLE_CLASS($empresa, $k, $clienteInfo->WEBLOGIN, $shop);
+                                        }
+                                        $x++;
+                                    }
+
+                                    $niveles = [
+                                        '100' => 'Basic',
+                                        '123' => 'Profesional: FACEBOOK',
+                                        '142' => 'Profesional: FACEBOOK + INSTAGRAM',
+                                        '124' => 'Advanced: FACEBOOK',
+                                        '131' => 'PROMO',
+                                        '143' => 'Advanced: FACEBOOK INSTAGRAM',
+                                        '153' => 'PREMIUM +',
+                                    ];
+
+                                    $nivelTexto = null;
+                                    $codigoNivel = null;
+
+                                    foreach ($niveles as $codigo => $texto) {
+                                        if (isset($shops[0]->finantial[$codigo])) {
+                                            $nivelTexto = $texto;
+                                            $codigoNivel = $codigo;
+                                            break;
+                                        }
+                                    }
+
+                                    // Lista de servicios que quieres mostrar (clave, nombre amigable)
+                                    $servicios = [
+                                        ['key' => '6', 'label' => 'Natural View / Ugosoft'],
+                                        ['key' => '7', 'label' => __('client.sales_assistant')],
+                                        ['key' => '13', 'label' => __('client.fideliza_use')],
+                                        ['key' => '9', 'label' => 'Natural TV'],
+                                        ['key' => '8', 'label' => __('client.app_download')],
+                                        ['key' => '1', 'label' => __('client.web_profile')],
+                                        ['key' => '2', 'label' => __('client.web_images')],
+                                        ['key' => '3', 'label' => __('client.web_services')],
+                                        ['key' => '4', 'label' => 'Google My Business'],
+                                        ['key' => '5', 'label' => 'Tour Virtual'],
+                                        ['key' => $codigoNivel, 'label' => __('Servicio Community')],
+                                        ['key' => '12', 'label' => __('client.rgpd_audit')],
+                                        ['key' => '11', 'label' => 'WIVI'],
+                                    ];
+
+                                @endphp
+    
+                                <div class="d-flex justify-content-center p-md-5 ps-md-2 pe-md-2 sizeCard">
+                                    <table id="serviciosTable" class="table table-bordered table-hover">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th>{{ __('Servicio') }}</th>
+                                                <th>{{ __('Tienda') }}</th>
+                                                <th>{{ __('Estado') }}</th>
+                                                {{-- <th>{{ __('Enlace') }}</th> --}}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($servicios as $servicio)
+                                                @foreach($shops as $shop)
+                                                    @php
+                                                        $key = $servicio['key'];
+                                                        $estado = $shop->services[$key]['status'] ?? 0;
+                                                        $icono = getIcon($estado);
+                                                        //$url = $shop->services[$key]['url'] ?? null;
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $servicio['label'] }}
+                                                            @if($servicio['label'] === __('Servicio Community'))
+                                                                - <b>{{ $nivelTexto }}</b>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $shop->nameAlias }}</td>
+                                                        <td>
+                                                            @if($key === '1' || $key === '4')
+                                                                <a href="{{$shop->services[$key]['url']}}" target="_blank">
+                                                            @endif
+                                                                <img src="{{ asset($icono) }}" alt="estado" width="30" height="30">
+                                                            @if($key === '1')
+                                                                </a>
+                                                            @endif
+                                                        </td>
+                                                        {{-- <td>
+                                                            @if($estado == 1 && $url)
+                                                                <a href="{{ $url }}" target="_blank">🔗</a>
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td> --}}
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                         </div>
+
                     </div>
 
                 </div>

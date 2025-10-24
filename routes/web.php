@@ -39,5 +39,7 @@ Route::get('/datatableBuscadorCliente', [HomeController::class, 'datatableBuscad
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
 Route::get('/about', 'AboutController@index')->name('about');
+// Llamada AJAX para cargar shops dinámicamente
+Route::get('/about/shops', 'AboutController@getShops')->name('about.getShops');
 
 

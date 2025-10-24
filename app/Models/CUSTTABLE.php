@@ -427,7 +427,7 @@ class CUSTTABLE extends Model
         return $query->get();
     }
 
-    public static function getInfoCliente($empresa, $cliente)
+    /* public static function getInfoCliente($empresa, $cliente)
     {
         $countryMap = [
             'AF' => 'Afganistán',
@@ -789,34 +789,348 @@ class CUSTTABLE extends Model
             ->whereRaw('LTRIM(c.accountnum) = ?', [$user])
             ->first();
 
+    } */
 
-        /* return DB::connection('sqlsrv_AXDB30')->table('custtable as c')
+    public static function getInfoCliente($empresa, $cliente)
+    {
+        $countryMap = [
+            'AF' => 'Afganistán',
+            'AL' => 'Albania',
+            'DE' => 'Alemania',
+            'AD' => 'Andorra',
+            'AO' => 'Angola',
+            'AI' => 'Anguila',
+            'AQ' => 'Antártida',
+            'AG' => 'Antigua y Barbuda',
+            'SA' => 'Arabia Saudita',
+            'DZ' => 'Argelia',
+            'AR' => 'Argentina',
+            'AM' => 'Armenia',
+            'AW' => 'Aruba',
+            'AU' => 'Australia',
+            'AT' => 'Austria',
+            'AZ' => 'Azerbaiyán',
+            'BS' => 'Bahamas',
+            'BD' => 'Bangladés',
+            'BB' => 'Barbados',
+            'BH' => 'Baréin',
+            'BE' => 'Bélgica',
+            'BZ' => 'Belice',
+            'BJ' => 'Benín',
+            'BM' => 'Bermudas',
+            'BY' => 'Bielorrusia',
+            'BO' => 'Bolivia',
+            'BA' => 'Bosnia y Herzegovina',
+            'BW' => 'Botsuana',
+            'BR' => 'Brasil',
+            'BN' => 'Brunéi',
+            'BG' => 'Bulgaria',
+            'BF' => 'Burkina Faso',
+            'BI' => 'Burundi',
+            'BT' => 'Bután',
+            'CV' => 'Cabo Verde',
+            'KH' => 'Camboya',
+            'CM' => 'Camerún',
+            'CA' => 'Canadá',
+            'QA' => 'Catar',
+            'TD' => 'Chad',
+            'CL' => 'Chile',
+            'CN' => 'China',
+            'CY' => 'Chipre',
+            'VA' => 'Ciudad del Vaticano',
+            'CO' => 'Colombia',
+            'KM' => 'Comoras',
+            'CG' => 'Congo',
+            'CD' => 'Congo (Rep. Dem.)',
+            'KP' => 'Corea del Norte',
+            'KR' => 'Corea del Sur',
+            'CI' => 'Costa de Marfil',
+            'CR' => 'Costa Rica',
+            'HR' => 'Croacia',
+            'CU' => 'Cuba',
+            'DK' => 'Dinamarca',
+            'DM' => 'Dominica',
+            'EC' => 'Ecuador',
+            'EG' => 'Egipto',
+            'SV' => 'El Salvador',
+            'AE' => 'Emiratos Árabes Unidos',
+            'ER' => 'Eritrea',
+            'SK' => 'Eslovaquia',
+            'SI' => 'Eslovenia',
+            'ES' => 'España',
+            'US' => 'Estados Unidos',
+            'EE' => 'Estonia',
+            'ET' => 'Etiopía',
+            'PH' => 'Filipinas',
+            'FI' => 'Finlandia',
+            'FJ' => 'Fiyi',
+            'FR' => 'Francia',
+            'GA' => 'Gabón',
+            'GM' => 'Gambia',
+            'GE' => 'Georgia',
+            'GH' => 'Ghana',
+            'GI' => 'Gibraltar',
+            'GD' => 'Granada',
+            'GR' => 'Grecia',
+            'GL' => 'Groenlandia',
+            'GT' => 'Guatemala',
+            'GN' => 'Guinea',
+            'GQ' => 'Guinea Ecuatorial',
+            'GW' => 'Guinea-Bisáu',
+            'GY' => 'Guyana',
+            'HT' => 'Haití',
+            'HN' => 'Honduras',
+            'HU' => 'Hungría',
+            'IN' => 'India',
+            'ID' => 'Indonesia',
+            'IQ' => 'Irak',
+            'IR' => 'Irán',
+            'IE' => 'Irlanda',
+            'IS' => 'Islandia',
+            'IL' => 'Israel',
+            'IT' => 'Italia',
+            'JM' => 'Jamaica',
+            'JP' => 'Japón',
+            'JO' => 'Jordania',
+            'KZ' => 'Kazajistán',
+            'KE' => 'Kenia',
+            'KG' => 'Kirguistán',
+            'KI' => 'Kiribati',
+            'KW' => 'Kuwait',
+            'LA' => 'Laos',
+            'LS' => 'Lesoto',
+            'LV' => 'Letonia',
+            'LB' => 'Líbano',
+            'LR' => 'Liberia',
+            'LY' => 'Libia',
+            'LI' => 'Liechtenstein',
+            'LT' => 'Lituania',
+            'LU' => 'Luxemburgo',
+            'MG' => 'Madagascar',
+            'MY' => 'Malasia',
+            'MW' => 'Malaui',
+            'MV' => 'Maldivas',
+            'ML' => 'Malí',
+            'MT' => 'Malta',
+            'MA' => 'Marruecos',
+            'MU' => 'Mauricio',
+            'MR' => 'Mauritania',
+            'MX' => 'México',
+            'FM' => 'Micronesia',
+            'MD' => 'Moldavia',
+            'MC' => 'Mónaco',
+            'MN' => 'Mongolia',
+            'ME' => 'Montenegro',
+            'MZ' => 'Mozambique',
+            'NA' => 'Namibia',
+            'NR' => 'Nauru',
+            'NP' => 'Nepal',
+            'NI' => 'Nicaragua',
+            'NE' => 'Níger',
+            'NG' => 'Nigeria',
+            'NO' => 'Noruega',
+            'NZ' => 'Nueva Zelanda',
+            'OM' => 'Omán',
+            'NL' => 'Países Bajos',
+            'PK' => 'Pakistán',
+            'PW' => 'Palaos',
+            'PA' => 'Panamá',
+            'PG' => 'Papúa Nueva Guinea',
+            'PY' => 'Paraguay',
+            'PE' => 'Perú',
+            'PL' => 'Polonia',
+            'PT' => 'Portugal',
+            'GB' => 'Reino Unido',
+            'CF' => 'República Centroafricana',
+            'CZ' => 'República Checa',
+            'DO' => 'República Dominicana',
+            'RW' => 'Ruanda',
+            'RO' => 'Rumanía',
+            'RU' => 'Rusia',
+            'WS' => 'Samoa',
+            'KN' => 'San Cristóbal y Nieves',
+            'SM' => 'San Marino',
+            'VC' => 'San Vicente y las Granadinas',
+            'SH' => 'Santa Elena',
+            'LC' => 'Santa Lucía',
+            'ST' => 'Santo Tomé y Príncipe',
+            'SN' => 'Senegal',
+            'RS' => 'Serbia',
+            'SC' => 'Seychelles',
+            'SL' => 'Sierra Leona',
+            'SG' => 'Singapur',
+            'SY' => 'Siria',
+            'SO' => 'Somalia',
+            'LK' => 'Sri Lanka',
+            'SZ' => 'Suazilandia',
+            'ZA' => 'Sudáfrica',
+            'SD' => 'Sudán',
+            'SS' => 'Sudán del Sur',
+            'SE' => 'Suecia',
+            'CH' => 'Suiza',
+            'SR' => 'Surinam',
+            'TH' => 'Tailandia',
+            'TW' => 'Taiwán',
+            'TZ' => 'Tanzania',
+            'TJ' => 'Tayikistán',
+            'TL' => 'Timor Oriental',
+            'TG' => 'Togo',
+            'TO' => 'Tonga',
+            'TT' => 'Trinidad y Tobago',
+            'TN' => 'Túnez',
+            'TM' => 'Turkmenistán',
+            'TR' => 'Turquía',
+            'TV' => 'Tuvalu',
+            'UA' => 'Ucrania',
+            'UG' => 'Uganda',
+            'UY' => 'Uruguay',
+            'UZ' => 'Uzbekistán',
+            'VU' => 'Vanuatu',
+            'VE' => 'Venezuela',
+            'VN' => 'Vietnam',
+            'YE' => 'Yemen',
+            'DJ' => 'Yibuti',
+            'ZM' => 'Zambia',
+            'ZW' => 'Zimbabue',
+        ];
+
+        $provinceMap = [
+            // EA1
+            'O'   => 'Asturias',
+            'AV'  => 'Ávila',
+            'BU'  => 'Burgos',
+            'S'   => 'Santander',
+            'C'   => 'A Coruña',
+            'LE'  => 'León',
+            'LU'  => 'Lugo',
+            'OR'  => 'Ourense',
+            'P'   => 'Palencia',
+            'PO'  => 'Pontevedra',
+            'LO'  => 'Logroño',
+            'SA'  => 'Salamanca',
+            'SG'  => 'Segovia',
+            'SO'  => 'Soria',
+            'VA'  => 'Valladolid',
+            'ZA'  => 'Zamora',
+            // EA2
+            'VI'  => 'Álava',
+            'SS'  => 'Guipúzcoa',
+            'HU'  => 'Huesca',
+            'NA'  => 'Navarra',
+            'TE'  => 'Teruel',
+            'BI'  => 'Vizcaya',
+            'Z'   => 'Zaragoza',
+            // EA3
+            'B'   => 'Barcelona',
+            'GI'  => 'Girona',
+            'L'   => 'Lleida',
+            'T'   => 'Tarragona',
+            // EA4
+            'BA'  => 'Badajoz',
+            'CC'  => 'Cáceres',
+            'CR'  => 'Ciudad Real',
+            'CU'  => 'Cuenca',
+            'GU'  => 'Guadalajara',
+            'M'   => 'Madrid',
+            'TO'  => 'Toledo',
+            // EA5
+            'AB'  => 'Albacete',
+            'A'   => 'Alicante',
+            'CS'  => 'Castellón',
+            'MU'  => 'Murcia',
+            'V'   => 'Valencia',
+            // EA6
+            'IB'  => 'Illes Balears',
+            // EA7
+            'AL'  => 'Almería',
+            'CA'  => 'Cádiz',
+            'CO'  => 'Córdoba',
+            'GR'  => 'Granada',
+            'H'   => 'Huelva',
+            'J'   => 'Jaén',
+            'MA'  => 'Málaga',
+            'SE'  => 'Sevilla',
+            // EA8
+            'GC'  => 'Las Palmas',
+            'TF'  => 'Tenerife',
+            // EA9
+            'CE'  => 'Ceuta',
+            'ML'  => 'Melilla',
+        ];
+
+        // CASE para país
+        $caseCountry = "CASE";
+        foreach ($countryMap as $code => $name) {
+            $caseCountry .= " WHEN UPPER(c.country) = '$code' THEN '$name'";
+        }
+        $caseCountry .= " ELSE c.country END AS country_name";
+
+        // CASE para provincia
+        $caseProvince = "CASE";
+        foreach ($provinceMap as $code => $name) {
+            $caseProvince .= " WHEN UPPER(c.county) = '$code' THEN '$name'";
+        }
+        $caseProvince .= " ELSE c.county END AS county_name";
+
+        return DB::connection('sqlsrv_AXDB30')->table('custtable as c')
             ->selectRaw("
-                    LTRIM(c.accountnum) as accountnum,
-                    c.name,
-                    c.address,
-                    c.phone,
-                    c.paymtermid,
-                    c.CREDITMAX as CreditoMaximo,
-                    c.MANDATORYCREDITLIMIT as limiteObligatorio,
-                    c.CREDITRATING as CreditoTasacion,
-                    c.vatnum,
-                    c.email,
-                    c.emplint,
-                    c.zipcode,
-                    c.city,
-                    c.street,
-                    $caseCountry,
-                    W.WEBLOGINGROUP as TIPO,
-                    W.NOMBRECOMERCIAL as NOMBRECOMERCIAL
-                ")
+            clf.NATCUSTCARACVALOR AS COMNAME,
+            cl.NATCUSTCARAC,
+            cl.NATCUSTCARACVALOR,
+            p.EMAIL AS contact_email,
+            LTRIM(c.accountnum) AS accountnum,
+            c.name,
+            c.address,
+            c.phone,
+            c.paymmode,
+            c.paymtermid,
+            c.creditmax AS CreditoMaximo,
+            c.MANDATORYCREDITLIMIT as limiteObligatorio,
+            c.CREDITRATING as CreditoTasacion,
+            c.vatnum,
+            c.email,
+            c.emplint,
+            c.zipcode,
+            c.city,
+            c.street,
+            c.state,
+            $caseCountry,
+            $caseProvince,
+            c.STATISTICSGROUP AS grupostat,
+            c.URL AS webpages,
+            c.WEBLOGIN,
+            W.WEBLOGINGROUP AS TIPO,
+            W.NOMBRECOMERCIAL AS NOMBRECOMERCIAL,
+            NC.NATCUSTCLASSIFICATIONID,
+            NC.DESCRIPTION as ClasificacionDescripcion
+        ")
+            ->leftJoin('NatCustCaracItem as cl', function ($join) {
+                $join->on('cl.DATAAREAID', '=', 'c.DATAAREAID')
+                    ->whereColumn('cl.CUSTACCOUNT', 'c.ACCOUNTNUM')
+                    ->where('cl.NATCUSTCARAC', 'FACTURAE');
+            })
+            ->leftJoin('NatCustCaracItem as clf', function ($join) {
+                $join->on('clf.DATAAREAID', '=', 'c.DATAAREAID')
+                    ->whereColumn('clf.CUSTACCOUNT', 'c.ACCOUNTNUM')
+                    ->where('clf.NATCUSTCARAC', 'FORMACOMER');
+            })
+            ->leftJoin('ContactPerson as p', function ($join) {
+                $join->where('p.DATAAREAID', 'vi3')
+                    ->on('p.NatCompanyId', '=', 'c.DATAAREAID')
+                    ->whereColumn('p.CUSTACCOUNT', 'c.ACCOUNTNUM')
+                    ->where('p.TITLE', 'FacturaE');
+            })
             ->leftJoin('Sir_Weblogin as W', function ($join) {
                 $join->on('c.weblogin', '=', 'W.WEBLOGIN')
                     ->whereColumn('c.dataareaid', 'W.dataareaid');
             })
+            ->leftJoin('NATCUSTCLASIFICATION as NC', function ($join) {
+                $join->on('W.NATCUSTCLASSIFICATIONID', '=', 'NC.NATCUSTCLASSIFICATIONID')
+                    ->on('W.DATAAREAID', '=', 'NC.DATAAREAID');
+            })
             ->where('c.DATAAREAID', $empresa)
-            ->whereRaw('LTRIM(c.accountnum) = ?', [$user])
-            ->first(); */
+            ->whereRaw('LTRIM(c.accountnum) = ?', [$cliente])
+            ->first();
     }
 
     public static function getCheckDevoluciones($weblogin, $empresa, $year)
@@ -916,7 +1230,7 @@ class CUSTTABLE extends Model
             AND LTRIM(o.custaccount) = ?
             AND s.dataareaid = 'vi2'";
 
-            $string = (string) $cliente;
+        $string = (string) $cliente;
 
         $rows = DB::connection('sqlsrv_AXDB30')->select($query, [$empresa, $string]);
 
@@ -989,7 +1303,7 @@ class CUSTTABLE extends Model
 
     public static function setRGPD($empresa, $cliente)
     {
-        $string= (string) $cliente;
+        $string = (string) $cliente;
         // 1. Obtener el VATNUM desde CUSTTABLE
         $vatnum = DB::connection('sqlsrv_AXDB30')
             ->table('custtable')
@@ -1024,7 +1338,7 @@ class CUSTTABLE extends Model
 
     public static function setCuota($empresa, $weblogin, $cliente)
     {
-        $string= (string) $cliente;
+        $string = (string) $cliente;
 
         $rows = DB::connection('sqlsrv_AXDB30')
             ->table('custtable')
@@ -1033,8 +1347,8 @@ class CUSTTABLE extends Model
             ->whereRaw('LTRIM(weblogin) = ?', [$weblogin])
             ->get();
 
-            
-            foreach ($rows as $row) {
+
+        foreach ($rows as $row) {
             if ($row->id === $string) {
                 if (trim($row->custgroup) === 'ASOCIADOS0') {
                     return 2;
@@ -1096,7 +1410,7 @@ class CUSTTABLE extends Model
         // Usa la conexión que necesites (ajusta el nombre si es otro)
         $db = DB::connection('sqlsrv_AXDB30');
 
-        $string= (string) $cliente;
+        $string = (string) $cliente;
 
         $result = $db->select($sql, [$dataAreaId, $weblogin, $string]);
 

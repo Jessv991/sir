@@ -7,9 +7,3 @@ if (!function_exists('getIcon')) {
     }
 }
 
-if (!function_exists('clientTrue')) {
-    function clientTrue($estado)
-    {
-        return asset($estado == 1 ? true : false);
-    }
-}

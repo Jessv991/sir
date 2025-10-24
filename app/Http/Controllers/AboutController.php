@@ -41,10 +41,13 @@ class AboutController extends Controller
         //dd($nombre, $empresa, $axapta, $weblogin);
 
         $this->data['clienteInfo'] = CUSTTABLE::getInfoCliente($empresa, $axapta);
-        $this->data['menuCliente'] = CUSTTABLE::infoAdicionalCliente($empresa, $axapta);
+        if (empty($this->data['clienteInfo']->NOMBRECOMERCIAL)) {
+            $this->data['clienteInfo']->NOMBRECOMERCIAL = $this->data['clienteInfo']->name;
+        }
+        /* $this->data['menuCliente'] = CUSTTABLE::infoAdicionalCliente($empresa, $axapta);
         if (empty($this->data['menuCliente']->NOMBRECOMERCIAL)) {
             $this->data['menuCliente']->NOMBRECOMERCIAL = $this->data['clienteInfo']->name;
-        }
+        } */
 
         $this->data['devolucion'] = CUSTTABLE::getCheckDevoluciones($weblogin, $empresa, $year);
         $this->data['potencialAnual'] = NAT_BUDGETCLOSED::getPotencialAnual($weblogin);
@@ -53,9 +56,6 @@ class AboutController extends Controller
         $this->data['capacidades'] = PROCEDURES::getInfoClient($weblogin);
         $this->data['gestores'] = SIR_WEBLOGIN::getInfoEmplWeblogin($empresa, $weblogin);
         $this->data['shopsInfo'] = CUSTTABLE::getClientesStatus($weblogin, $empresa);
-        /*  $potencial_mes_cierre = PROCEDURES::getPotencialMesCierre($empresa, $year, $weblogin, $mescalculo);
-        $realizado = PROCEDURES::getRealizadoAFecha($weblogin);
-        $this->data['fidelidad'] = ( $realizado / $potencial_mes_cierre ) * 100; */
 
         //dd($this->data);
 
