@@ -856,6 +856,12 @@ div#serviciosTable_wrapper {
     --bs-btn-hover-border-color: #4e73df !important;
 }
 
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    border: transparent !important;
+    background-color: #cce5d6 !important;
+    background: linear-gradient(to bottom, #cce5d6 0%, #fff 100%) !important;
+}
+
 div#serviciosTable_wrapper {
     width: 100%;
 }
