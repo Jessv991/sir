@@ -828,6 +828,10 @@ body.sidebar-toggled footer.sticky-footer {
                                                          
 */
 
+div#serviciosTable_wrapper {
+    width: 100%;
+}
+
 .pagination {
     --bs-pagination-active-bg: #00a091 !important;
     --bs-pagination-active-border-color: #00a091 !important;
@@ -850,6 +854,62 @@ body.sidebar-toggled footer.sticky-footer {
     --bs-btn-border-color: #00a091 !important;
     --bs-btn-hover-bg: #4e73df !important;
     --bs-btn-hover-border-color: #4e73df !important;
+}
+
+div#serviciosTable_wrapper {
+    width: 100%;
+}
+
+.form-select-sm {
+    background-color: transparent !important;
+    color: white !important;
+    /* texto del select visible */
+    border-color: transparent !important;
+    box-shadow: none !important;
+    /* elimina sombras de Bootstrap */
+    font-weight: bold !important;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Elimina el borde azul y mantiene el estilo cuando tiene foco */
+.form-select-sm:focus,
+.form-select-sm:focus-visible,
+.form-select-sm:active {
+    background-color: transparent !important;
+    color: white !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    /* elimina el borde azul del navegador */
+    font-weight: bold !important;
+    cursor: pointer;
+}
+
+/* Estilo de las opciones del desplegable */
+.form-select-sm option {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Color de fondo al pasar el mouse (hover) */
+.form-select-sm option:hover {
+  background-color: #00a091 !important; /* tu color personalizado */
+  color: white !important; /* texto blanco sobre fondo verde */
+}
+
+.form-select-sm {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 0.8rem auto !important;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5l6.5 6 6.5-6z'/%3E%3C/svg%3E") !important;
+    padding-right: 2rem !important;
+    background-size: 1rem auto !important;
+    background-position: right 1rem center !important;
 }
 
 /* 

@@ -15,7 +15,7 @@ class SetLocale
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
         } else {
-            App::setLocale('ca'); // catalán por defecto
+            App::setLocale('es'); // catalán por defecto
         }
 
         return $next($request);
