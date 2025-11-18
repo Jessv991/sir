@@ -59,7 +59,7 @@ class AboutController extends Controller
 
         //dd($this->data);
 
-        return view('about', $this->data);
+        return view('sir/about', $this->data);
     }
 
 }
