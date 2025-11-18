@@ -188,9 +188,9 @@
                         columns: [{
                                 data: 'WEBLOGIN',
                                 render: function(data, type, row) {
-                                    //console.log(row);
-                                    return `<button class="w-100 btn btn-primary btn-sm seleccionar-cliente" onclick="window.location.href='${url}'">SELECCIONAR</button>`;
-                                }
+        const url = `${APP_URL}/about?nombre=${encodeURIComponent(row['NOMBRE'])}&empresa=${encodeURIComponent(row['EMPRESA'])}&axapta=${encodeURIComponent(row['AXAPTA'])}&weblogin=${encodeURIComponent(row['WEBLOGIN'])}`;
+        return `<button class="w-100 btn btn-primary btn-sm seleccionar-cliente" onclick="window.location.href='${url}'">SELECCIONAR</button>`;
+    }
                             },
                             {
                                 data: 'AXAPTA'
