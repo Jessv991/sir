@@ -17,10 +17,3 @@
     RewriteRule ^ server.php
 </IfModule>
 
-
-
-
-
-
-
-
