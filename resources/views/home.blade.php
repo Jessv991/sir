@@ -133,7 +133,7 @@
         </div> --}}
         <input type="hidden" id="perfil" value="{{ Auth::user()->PBAUSERPROFILE }}">
         <input type="hidden" id="usuario" value="{{ Auth::user()->EMPLID }}">
-
+        
         <div class="col-lg-12 mb-3">
             <div class="card shadow mb-3">
                 <div class="card-header py-3">
@@ -161,7 +161,6 @@
         <script type="text/javascript">
             $(document).ready(function() {
 
-                const APP_URL = "{{ config('app.url') }}"; // https://api.naturaloptics.com/sir
                 const screenWidth = window.innerWidth;
                 var pag = 5;
 
@@ -188,9 +187,9 @@
                         columns: [{
                                 data: 'WEBLOGIN',
                                 render: function(data, type, row) {
-        const url = `${APP_URL}/about?nombre=${encodeURIComponent(row['NOMBRE'])}&empresa=${encodeURIComponent(row['EMPRESA'])}&axapta=${encodeURIComponent(row['AXAPTA'])}&weblogin=${encodeURIComponent(row['WEBLOGIN'])}`;
-        return `<button class="w-100 btn btn-primary btn-sm seleccionar-cliente" onclick="window.location.href='${url}'">SELECCIONAR</button>`;
-    }
+                                    //console.log(row);
+                                    return `<button class="w-100 btn btn-primary btn-sm seleccionar-cliente" data-id="seleccionar_cliente" data-empresa="${row['EMPRESA']}" data-nombre="${row['NOMBRE']}" data-axapta="${row['AXAPTA']}" data-weblogin="${row['WEBLOGIN']}" >SELECCIONAR</button>`
+                                }
                             },
                             {
                                 data: 'AXAPTA'
