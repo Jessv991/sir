@@ -452,7 +452,6 @@
         // Ejecutar la detección en carga y cuando cambie la orientación
         window.addEventListener('load', detectarOrientacion);
         window.addEventListener('resize', detectarOrientacion);
-        const BASE_URL = "<?= base_url(); ?>";
     </script>
 
 

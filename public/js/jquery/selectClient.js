@@ -1,5 +1,4 @@
 $(document).on('click', '.seleccionar-cliente', function () {
-    console.log(BASE_URL);
     const nombre = $(this).data('nombre');
     const empresa = $(this).data('empresa');
     const axapta = $(this).data('axapta');
