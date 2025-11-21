@@ -293,7 +293,7 @@ class EMPLTABLE extends Authenticatable
         return static::where('EMAIL', $email)
             ->where('SIR_PASSWORD', $password)
             ->where('SIR_ACTIVE', 1)
-            ->whereIn('PBAUSERPROFILE', ['Comerfarma', 'SuperComer'])
+            ->where('DATAAREAID', 'vir')
             ->first();
     }
 }
