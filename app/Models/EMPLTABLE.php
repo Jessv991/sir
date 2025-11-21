@@ -295,5 +295,6 @@ class EMPLTABLE extends Authenticatable
             ->where('SIR_ACTIVE', 1)
             ->where('DATAAREAID', 'vir')
             ->first();
+            
     }
 }
