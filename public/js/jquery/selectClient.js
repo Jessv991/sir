@@ -11,6 +11,7 @@ $(document).on('click', '.seleccionar-cliente', function () {
     const empresa = $(this).data('empresa');
     const axapta = $(this).data('axapta');
     const weblogin = $(this).data('weblogin');
+    console.log(baseUrl);
     console.log(isSir);
     // Codificamos los valores para que sean seguros en la URL
     const url = `${isSir}/about?nombre=${encodeURIComponent(nombre)}&empresa=${encodeURIComponent(empresa)}&axapta=${encodeURIComponent(axapta)}&weblogin=${encodeURIComponent(weblogin)}`;
