@@ -1,4 +1,7 @@
+const baseUrl = window.location.origin;
+
 $(document).on('click', '.seleccionar-cliente', function () {
+    console.log(baseUrl);
     const nombre = $(this).data('nombre');
     const empresa = $(this).data('empresa');
     const axapta = $(this).data('axapta');
