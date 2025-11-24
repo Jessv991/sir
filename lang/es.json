@@ -88,5 +88,6 @@
   "auth.login": "Acceso",
   "auth.password": "Clave",
   "auth.about": "Sobre el cliente",
-  "auth.negocio": "Negocio"
+  "auth.negocio": "Negocio",
+  "auth.electronic_invoice": "e-Factura"
 }

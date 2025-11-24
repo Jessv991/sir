@@ -55,7 +55,7 @@
                                                             value="{{ trim($clienteInfo->accountnum) }}" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
                                                     <div class="form-group focused">
                                                         <label class=" text-uppercase"
                                                             for="nom_comercial">{{ __('client.trade_name') }}</label>
@@ -64,7 +64,7 @@
                                                             value="{{ trim($clienteInfo->NOMBRECOMERCIAL) }}" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
                                                     <div class="form-group focused">
                                                         <label class=" text-uppercase"
                                                             for="nom_fiscal">{{ __('client.tax_name') }}</label>
@@ -81,10 +81,18 @@
                                                             value="{{ trim($clienteInfo->vatnum) }}" disabled>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-2">
+                                                    <div class="form-group focused">
+                                                        <label class="" for="weblogin">Weblogin</label>
+                                                        <input type="text" id="weblogin" class="form-control"
+                                                            name="weblogin" placeholder="Weblogin"
+                                                            value="{{ trim($clienteInfo->WEBLOGIN) }}" disabled>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="row mt-3">
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-2">
                                                     <div class="form-group focused">
                                                         <label class=" text-uppercase"
                                                             for="telefono">{{ __('auth.telephone') }}</label>
@@ -113,6 +121,21 @@
                                                         <input type="email" id="email" class="form-control"
                                                             name="email" placeholder="Email"
                                                             value="{{ trim($clienteInfo->email) }}" disabled>
+                                                    </div>
+                                                </div>
+                                                @if (strtoupper($clienteInfo->NATCUSTCARACVALOR) === 'NO')
+                                                    @php $fact_elect_no = 'REEMBOLSO'; @endphp
+                                                @else
+                                                    @php $fact_elect_no = ''; @endphp
+                                                @endif
+                                                <div class="col-lg-1">
+                                                    <div class="form-group focused">
+                                                        <label class=" text-uppercase"
+                                                            for="fact_electronica">{{ __('auth.electronic_invoice') }}</label>
+                                                        <input type="fact_electronica" id="fact_electronica"
+                                                            class="form-control {{ $fact_elect_no }}" name="fact_electronica"
+                                                            placeholder="fact_electronica"
+                                                            value="{{ trim($clienteInfo->NATCUSTCARACVALOR) }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -432,304 +455,306 @@
 
                             @endphp
 
-                            {{-- <div class="d-flex justify-content-center p-md-5 ps-md-2 pe-md-2 sizeCard">
-                                <table class="table table-striped">
-                                    <thead class="table-primary">
-                                        <tr>
-                                            <th scope="col">{{ __('client.services') }}</th>
-                                            @foreach ($shops as $shop)
-                                                <th scope="col">
-                                                    {{ $shop->nameAlias }}
-                                                </th>
-                                            @endforeach
+                            <div class="d-flex justify-content-center p-md-5 ps-md-2 pe-md-2 sizeCard w-100">
+                                <div class="table-responsive w-100 ps-3 pe-3">
+                                    <table class="table">
+                                        <thead class="table-primary sticky-top">
+                                            <tr>
+                                                <th scope="col">{{ __('client.services') }}</th>
+                                                @foreach ($shops as $shop)
+                                                    <th scope="col">
+                                                        {{ $shop->nameAlias }}
+                                                    </th>
+                                                @endforeach
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Natural View / Ugosoft</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['6']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.sales_assistant') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['7']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.fideliza_use') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td>
-                                                    @if (isset($shop->services['13']['status']))
-                                                        <img src="{{ asset(getIcon($shop->services['13']['status'])) }}"
-                                                            alt="check" width="30" height="30">
-                                                    @else
-                                                        <img src="{{ asset(getIcon(0)) }}" alt="no data" width="30"
-                                                            height="30">
-                                                    @endif
-                                                </td>
-                                            @endforeach
-                                        </tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Natural View / Ugosoft</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['6']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.sales_assistant') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['7']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.fideliza_use') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td>
+                                                        @if (isset($shop->services['13']['status']))
+                                                            <img src="{{ asset(getIcon($shop->services['13']['status'])) }}"
+                                                                alt="check" width="30" height="30">
+                                                        @else
+                                                            <img src="{{ asset(getIcon(0)) }}" alt="no data"
+                                                                width="30" height="30">
+                                                        @endif
+                                                    </td>
+                                                @endforeach
+                                            </tr>
 
-                                        <tr>
-                                            <td>Natural TV</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['9']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.app_download') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['8']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.web_profile') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td>
-                                                    @if ($shop->services['1']['status'] == 1)
-                                                        <a href="{{ $shop->services['1']['url'] }}" target="_blank">
+                                            <tr>
+                                                <td>Natural TV</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['9']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.app_download') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['8']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.web_profile') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td>
+                                                        @if ($shop->services['1']['status'] == 1)
+                                                            <a href="{{ $shop->services['1']['url'] }}" target="_blank">
+                                                                <img src="{{ asset(getIcon($shop->services['1']['status'])) }}"
+                                                                    alt="check" width="30" height="30">
+                                                            </a>
+                                                        @else
                                                             <img src="{{ asset(getIcon($shop->services['1']['status'])) }}"
                                                                 alt="check" width="30" height="30">
-                                                        </a>
-                                                    @else
-                                                        <img src="{{ asset(getIcon($shop->services['1']['status'])) }}"
-                                                            alt="check" width="30" height="30">
-                                                    @endif
-                                                </td>
-                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                @endforeach
 
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.web_images') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['2']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.web_services') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['3']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>Google My Business</td>
-                                            @foreach ($shops as $shop)
-                                                <td>
-                                                    @if ($shop->services['4']['status'] == 1)
-                                                        <a href="{{ $shop->services['4']['url'] }}" target="_blank">
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.web_images') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['2']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.web_services') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['3']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Google My Business</td>
+                                                @foreach ($shops as $shop)
+                                                    <td>
+                                                        @if ($shop->services['4']['status'] == 1)
+                                                            <a href="{{ $shop->services['4']['url'] }}" target="_blank">
+                                                                <img src="{{ asset(getIcon($shop->services['4']['status'])) }}"
+                                                                    alt="check" width="30" height="30">
+                                                            </a>
+                                                        @else
                                                             <img src="{{ asset(getIcon($shop->services['4']['status'])) }}"
                                                                 alt="check" width="30" height="30">
-                                                        </a>
-                                                    @else
-                                                        <img src="{{ asset(getIcon($shop->services['4']['status'])) }}"
-                                                            alt="check" width="30" height="30">
-                                                    @endif
-                                                </td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>Tour Virtual</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['5']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                {{ __('Servicio Community') }}
-                                                @php
-                                                    $niveles = [
-                                                        '100' => 'Basic',
-                                                        '123' => 'Profesional: FACEBOOK',
-                                                        '142' => 'Profesional: FACEBOOK + INSTAGRAM',
-                                                        '124' => 'Advanced: FACEBOOK',
-                                                        '131' => 'PROMO',
-                                                        '143' => 'Advanced: FACEBOOK INSTAGRAM',
-                                                        '153' => 'PREMIUM +',
-                                                    ];
-
-                                                    $nivelTexto = null;
-
-                                                    foreach ($niveles as $codigo => $texto) {
-                                                        if (isset($shops[0]->finantial[$codigo])) {
-                                                            $nivelTexto = $texto;
-                                                            break;
-                                                        }
-                                                    }
-                                                @endphp
-
-                                                @if ($nivelTexto)
-                                                    - <b>{{ $nivelTexto }}</b>
-                                                @endif
-                                            </td>
-                                            @foreach ($shops as $shop)
+                                                        @endif
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Tour Virtual</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['5']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
                                                 <td>
+                                                    {{ __('Servicio Community') }}
                                                     @php
-                                                        $activo = false;
+                                                        $niveles = [
+                                                            '100' => 'Basic',
+                                                            '123' => 'Profesional: FACEBOOK',
+                                                            '142' => 'Profesional: FACEBOOK + INSTAGRAM',
+                                                            '124' => 'Advanced: FACEBOOK',
+                                                            '131' => 'PROMO',
+                                                            '143' => 'Advanced: FACEBOOK INSTAGRAM',
+                                                            '153' => 'PREMIUM +',
+                                                        ];
+
+                                                        $nivelTexto = null;
+
                                                         foreach ($niveles as $codigo => $texto) {
-                                                            if (isset($shop->finantial[$codigo])) {
-                                                                $activo = true;
+                                                            if (isset($shops[0]->finantial[$codigo])) {
+                                                                $nivelTexto = $texto;
                                                                 break;
                                                             }
                                                         }
                                                     @endphp
 
-                                                    <img src="{{ asset($activo ? 'assets/icon/check.png' : 'assets/icon/cancel.png') }}"
-                                                        width="30" height="30"
-                                                        alt="{{ $activo ? 'check' : 'cancel' }}">
-                                                </td>
-                                            @endforeach
-                                        </tr>
-
-                                        <tr>
-                                            <td>Microweb</td>
-                                            @foreach ($shops as $shop)
-                                                @php
-                                                    $hasFinantial =
-                                                        isset($shop->finantial['149']) ||
-                                                        isset($shop->finantial['150']);
-                                                @endphp
-                                                <td><img src="{{ asset(getIcon($hasFinantial ? 1 : 0)) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>Natural BI</td>
-                                            @foreach ($shops as $shop)
-                                                @php
-                                                    $hasFinantial = isset($shop->finantial['139']);
-                                                @endphp
-                                                <td><img src="{{ asset(getIcon($hasFinantial ? 1 : 0)) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.macro_campaigns') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->macro)) }}" alt="check"
-                                                        width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.micro_campaigns') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->micro)) }}" alt="check"
-                                                        width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>Antonio Miro</td>
-                                            @foreach ($shops as $shop)
-                                                @php
-                                                    $hasAntonioMiro =
-                                                        isset($shop->ownProduct['ANTONIO MIRO']) &&
-                                                        $shop->ownProduct['ANTONIO MIRO'] >= 10;
-                                                @endphp
-                                                <td><img src="{{ asset(getIcon($hasAntonioMiro ? 1 : 0)) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>Miro Jeans</td>
-                                            @foreach ($shops as $shop)
-                                                @php
-                                                    $MiroJeans =
-                                                        isset($shop->ownProduct['MIROJEANS']) &&
-                                                        $shop->ownProduct['MIROJEANS'] >= 10;
-                                                @endphp
-                                                <td><img src="{{ asset(getIcon($MiroJeans ? 1 : 0)) }}" alt="check"
-                                                        width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>Be Natural / Be Happy</td>
-                                            @foreach ($shops as $shop)
-                                                @php
-                                                    $BeNaturalBeHappy =
-                                                        isset($shop->ownProduct['BE HAPPY']) &&
-                                                        isset($shop->ownProduct['BE NATURAL']) &&
-                                                        $shop->ownProduct['BE HAPPY'] +
-                                                            $shop->ownProduct['BE NATURAL'] >=
-                                                            10;
-                                                @endphp
-                                                <td><img src="{{ asset(getIcon($BeNaturalBeHappy ? 1 : 0)) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>Monsine</td>
-                                            @foreach ($shops as $shop)
-                                                @php
-                                                    $Monsine =
-                                                        isset($shop->ownProduct['MONSINE']) &&
-                                                        $shop->ownProduct['MONSINE'] >= 10;
-                                                @endphp
-                                                <td><img src="{{ asset(getIcon($Monsine ? 1 : 0)) }}" alt="check"
-                                                        width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.financial_services') }}</td>
-                                            @foreach ($shops as $shop)
-                                                @php
-                                                    $ServiciosFinancieros =
-                                                        isset($shop->finantial['101']) ||
-                                                        isset($shop->finantial['121']) ||
-                                                        isset($shop->finantial['89']);
-                                                @endphp
-                                                <td><img src="{{ asset(getIcon($ServiciosFinancieros ? 1 : 0)) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.rgpd_implementation') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->rgpd === 1 ? 1 : 0)) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.rgpd_audit') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td>
-                                                    @if (isset($shop->services['12']['status']))
-                                                        <img src="{{ asset(getIcon($shop->services['12']['status'])) }}"
-                                                            alt="check" width="30" height="30">
-                                                    @else
-                                                        <img src="{{ asset(getIcon(0)) }}" alt="no data"
-                                                            width="30" height="30">
+                                                    @if ($nivelTexto)
+                                                        - <b>{{ $nivelTexto }}</b>
                                                     @endif
                                                 </td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>WIVI</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->services['11']['status'])) }}"
-                                                        alt="check" width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('client.fee') }}</td>
-                                            @foreach ($shops as $shop)
-                                                <td><img src="{{ asset(getIcon($shop->cuota)) }}" alt="check"
-                                                        width="30" height="30"></td>
-                                            @endforeach
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> --}}
+                                                @foreach ($shops as $shop)
+                                                    <td>
+                                                        @php
+                                                            $activo = false;
+                                                            foreach ($niveles as $codigo => $texto) {
+                                                                if (isset($shop->finantial[$codigo])) {
+                                                                    $activo = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                        @endphp
 
-                            <div class="tab-pane fade show" id="servicios" role="tabpanel">
+                                                        <img src="{{ asset($activo ? 'assets/icon/check.png' : 'assets/icon/cancel.png') }}"
+                                                            width="30" height="30"
+                                                            alt="{{ $activo ? 'check' : 'cancel' }}">
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+
+                                            <tr>
+                                                <td>Microweb</td>
+                                                @foreach ($shops as $shop)
+                                                    @php
+                                                        $hasFinantial =
+                                                            isset($shop->finantial['149']) ||
+                                                            isset($shop->finantial['150']);
+                                                    @endphp
+                                                    <td><img src="{{ asset(getIcon($hasFinantial ? 1 : 0)) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Natural BI</td>
+                                                @foreach ($shops as $shop)
+                                                    @php
+                                                        $hasFinantial = isset($shop->finantial['139']);
+                                                    @endphp
+                                                    <td><img src="{{ asset(getIcon($hasFinantial ? 1 : 0)) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.macro_campaigns') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->macro)) }}" alt="check"
+                                                            width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.micro_campaigns') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->micro)) }}" alt="check"
+                                                            width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Antonio Miro</td>
+                                                @foreach ($shops as $shop)
+                                                    @php
+                                                        $hasAntonioMiro =
+                                                            isset($shop->ownProduct['ANTONIO MIRO']) &&
+                                                            $shop->ownProduct['ANTONIO MIRO'] >= 10;
+                                                    @endphp
+                                                    <td><img src="{{ asset(getIcon($hasAntonioMiro ? 1 : 0)) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Miro Jeans</td>
+                                                @foreach ($shops as $shop)
+                                                    @php
+                                                        $MiroJeans =
+                                                            isset($shop->ownProduct['MIROJEANS']) &&
+                                                            $shop->ownProduct['MIROJEANS'] >= 10;
+                                                    @endphp
+                                                    <td><img src="{{ asset(getIcon($MiroJeans ? 1 : 0)) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Be Natural / Be Happy</td>
+                                                @foreach ($shops as $shop)
+                                                    @php
+                                                        $BeNaturalBeHappy =
+                                                            isset($shop->ownProduct['BE HAPPY']) &&
+                                                            isset($shop->ownProduct['BE NATURAL']) &&
+                                                            $shop->ownProduct['BE HAPPY'] +
+                                                                $shop->ownProduct['BE NATURAL'] >=
+                                                                10;
+                                                    @endphp
+                                                    <td><img src="{{ asset(getIcon($BeNaturalBeHappy ? 1 : 0)) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Monsine</td>
+                                                @foreach ($shops as $shop)
+                                                    @php
+                                                        $Monsine =
+                                                            isset($shop->ownProduct['MONSINE']) &&
+                                                            $shop->ownProduct['MONSINE'] >= 10;
+                                                    @endphp
+                                                    <td><img src="{{ asset(getIcon($Monsine ? 1 : 0)) }}" alt="check"
+                                                            width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.financial_services') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    @php
+                                                        $ServiciosFinancieros =
+                                                            isset($shop->finantial['101']) ||
+                                                            isset($shop->finantial['121']) ||
+                                                            isset($shop->finantial['89']);
+                                                    @endphp
+                                                    <td><img src="{{ asset(getIcon($ServiciosFinancieros ? 1 : 0)) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.rgpd_implementation') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->rgpd === 1 ? 1 : 0)) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.rgpd_audit') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td>
+                                                        @if (isset($shop->services['12']['status']))
+                                                            <img src="{{ asset(getIcon($shop->services['12']['status'])) }}"
+                                                                alt="check" width="30" height="30">
+                                                        @else
+                                                            <img src="{{ asset(getIcon(0)) }}" alt="no data"
+                                                                width="30" height="30">
+                                                        @endif
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>WIVI</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->services['11']['status'])) }}"
+                                                            alt="check" width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>{{ __('client.fee') }}</td>
+                                                @foreach ($shops as $shop)
+                                                    <td><img src="{{ asset(getIcon($shop->cuota)) }}" alt="check"
+                                                            width="30" height="30"></td>
+                                                @endforeach
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {{-- <div class="tab-pane fade show" id="servicios" role="tabpanel">
                                 @php
                                     $shops = [];
                                     $x = 0;
@@ -872,7 +897,7 @@
 
                                                 @endphp
 
-                                                {{-- Campaña Macro --}}
+                                                Campaña Macro
                                                 <tr>
                                                     <td>{{ $shopMacro }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -882,7 +907,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Campaña Micro --}}
+                                                Campaña Micro
                                                 <tr>
                                                     <td>{{ $shopMicro }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -892,7 +917,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Marca Antonio Miro --}}
+                                                Marca Antonio Miro
                                                 <tr>
                                                     <td>{{ $shopAntonioMiro }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -902,7 +927,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Marca Miro Jeans --}}
+                                                Marca Miro Jeans
                                                 <tr>
                                                     <td>{{ $shopMiroJeans }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -912,7 +937,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Marca Be Natural / Be Happy --}}
+                                                Marca Be Natural / Be Happy
                                                 <tr>
                                                     <td>{{ $shopBeNaturalBeHappy }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -922,7 +947,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Marca Monsine --}}
+                                                Marca Monsine
                                                 <tr>
                                                     <td>{{ $shopMonsine }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -932,7 +957,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Marca RGPD --}}
+                                                Marca RGPD
                                                 <tr>
                                                     <td>{{ $shopRGPD }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -942,7 +967,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Marca Cuota --}}
+                                                Marca Cuota
                                                 <tr>
                                                     <td>{{ $shopCuota }}</td>
                                                     <td>{{ $shop->nameAlias }}</td>
@@ -952,7 +977,7 @@
                                                     </td>
                                                 </tr>
 
-                                                {{-- Finantial services --}}
+                                                Finantial services
                                                 @foreach ($finantials as $fin)
                                                     @php
                                                         $activo = false;
@@ -967,7 +992,7 @@
                                                     <tr>
                                                         <td>
                                                             {{ $fin['label'] }}
-                                                            {{-- Mostrar el nivel si aplica --}}
+                                                            Mostrar el nivel si aplica
                                                             @if (!empty($fin['showNivel']) && $activo)
                                                                 @php
                                                                     $nivelTextoShop = null;
@@ -989,7 +1014,7 @@
                                                     </tr>
                                                 @endforeach
 
-                                                {{-- Servicios normales --}}
+                                                Servicios normales
                                                 @foreach ($servicios as $servicio)
                                                     @php
                                                         $key = $servicio['key'];
@@ -1022,12 +1047,12 @@
 
 
 
-                            </div>
+                            </div> --}}
 
                         </div>
 
                     </div>
-                    <script>
+                    {{-- <script>
                         $(document).ready(function() {
                             const table = $('#serviciosTable').DataTable({
                                 paging: false,
@@ -1070,14 +1095,15 @@
                                 }
                             });
                         });
-                    </script>
+                    </script> --}}
 
 
 
 
                     @if ($devolucion > 0)
                         <div class="card-profile-image mb-4">
-                            <span class="devolucion">{{ __(client.refund_for_amount) }}: {{ number_format($devolucion, 2, ',', '.') }}
+                            <span class="devolucion">{{ __(client . refund_for_amount) }}:
+                                {{ number_format($devolucion, 2, ',', '.') }}
                                 €</span>
                         </div>
                     @endif
