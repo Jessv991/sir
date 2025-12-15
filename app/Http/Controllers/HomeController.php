@@ -68,6 +68,8 @@ class HomeController extends Controller
 
     public function index()
     {
+        //dd(session()->all());
+
         $this->detectarTipoDispositivo();
         $users = EMPLTABLE::count();
 

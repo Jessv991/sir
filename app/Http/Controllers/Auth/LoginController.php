@@ -45,6 +45,18 @@ class LoginController extends Controller
             //$remember = $request->filled('remember'); //sse pasará también a la función login esto
             Auth::login($user); // <-- inicia sesión manual
             LogController::setRegistroEntrada($credentials['email'], '0.1', '0.2', 1);
+            
+            $datosUsuario = [
+                'EMPLID'         => $user->EMPLID,
+                'NAME'           => $user->NAME,
+                'DIMENSION'      => $user->DIMENSION,
+                'PBAUSERPROFILE' => $user->PBAUSERPROFILE,
+            ];
+            
+            // Guardar en sesión
+            session()->put('usuario', $datosUsuario);
+            //dd($datosUsuario);
+            
             $request->session()->regenerate();
             session()->flash('success', '¡Has accedido correctamente!');
             return redirect()->intended($this->redirectTo);

@@ -114,201 +114,254 @@
 
             @php
                 $estado = request()->has('nombre') && !empty(request()->get('nombre')) ? true : false;
-                //dd($estado);
+                $usuario = session()->get('usuario');
+                $emplid = $usuario['EMPLID'];
+                $nombre = $usuario['NAME'];
+                $dimension = $usuario['DIMENSION'];
+                $perfil = $usuario['PBAUSERPROFILE'];
+                $empresa = $request->query('empresa');
+                $weblogin = $request->query('weblogin');
+
             @endphp
-            @if($estado === true)
-            <!-- Divider -->
+            @if ($estado === true)
+                <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
                 <li class="py-1 nav-item drop">
-                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu1" data-toggle="collapse" aria-expanded="false">
+                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu1" data-toggle="collapse"
+                        aria-expanded="false">
                         <i class="fas fa-briefcase" style="color: #6f42c1;"></i>
                         <span class="text-dark text-uppercase">{{ __('auth.negocio') }}</span>
                     </a>
-                    <div class="rounded m-0 background-toggled1 collapse" id="submenu1" aria-expanded="false" style="">
+                    <div class="rounded m-0 background-toggled1 collapse" id="submenu1" aria-expanded="false"
+                        style="">
                         <ul class="flex-column pl-2 nav margin-toggled">
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                <a class="w_intern nav-link py-1 collapsed" data-menuid="51" href="#submenu2" data-toggle="collapse" aria-expanded="false">
+                                <a class="w_intern nav-link py-1 collapsed" data-menuid="51" href="#submenu2"
+                                    data-toggle="collapse" aria-expanded="false">
                                     <i class="fas fa-file-alt" style="color: #6f42c1;"></i>
-                                    <span class="text-dark text-uppercase span-nav-lvl1">{{ __('client.reports') }}</span>
+                                    <span
+                                        class="text-dark text-uppercase span-nav-lvl1">{{ __('client.reports') }}</span>
                                 </a>
-                                <div class="rounded m-0 background-toggled1 collapse" id="submenu2" aria-expanded="false" style="">
+                                <div class="rounded m-0 background-toggled1 collapse" id="submenu2"
+                                    aria-expanded="false" style="">
                                     <ul class="flex-column pl-2 nav margin-toggled">
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="61"
+                                                href="/negocio/opcion1/61">
                                                 <i class="fas fa-share-alt" style="color: #6f42c1;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.social_media') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.social_media') }}</span>
                                             </a>
                                         </li>
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="62" href="/negocio/opcion2/62">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="62"
+                                                href="/negocio/opcion2/62">
                                                 <i class="fas fa-desktop" style="color: #6f42c1;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.online_presence') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.online_presence') }}</span>
                                             </a>
                                         </li>
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="63" href="/negocio/opcion3/63">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="63"
+                                                href="/negocio/opcion3/63">
                                                 <i class="fas fa-chart-line" style="color: #6f42c1;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.fideliza_trim_analysis') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.fideliza_trim_analysis') }}</span>
                                             </a>
                                         </li>
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="64" href="/negocio/opcion4/64">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="64"
+                                                href="/negocio/opcion4/64">
                                                 <i class="fas fa-chart-pie" style="color: #6f42c1;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.monthly_dashboards') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.monthly_dashboards') }}</span>
                                             </a>
                                         </li>
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="65" href="/negocio/opcion5/65">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="65"
+                                                href="/negocio/opcion5/65">
                                                 <i class="fas fa-chart-bar" style="color: #6f42c1;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.quarterly_dashboards') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.quarterly_dashboards') }}</span>
                                             </a>
                                         </li>
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="66" href="/negocio/opcion6/66">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="66"
+                                                href="/negocio/opcion6/66">
                                                 <i class="fas fa-calendar-alt" style="color: #6f42c1;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.annual_dashboards') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.annual_dashboards') }}</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                                                                                
+
                         </ul>
                     </div>
                 </li>
 
                 <li class="py-1 nav-item drop">
-                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu3" data-toggle="collapse" aria-expanded="false">
+                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu3" data-toggle="collapse"
+                        aria-expanded="false">
                         <i class="fas fa-handshake" style="color: #007bff;"></i>
                         <span class="text-dark text-uppercase">{{ __('client.commercial_closure') }}</span>
                     </a>
-                    <div class="rounded m-0 background-toggled1 collapse" id="submenu3" aria-expanded="false" style="">
+                    <div class="rounded m-0 background-toggled1 collapse" id="submenu3" aria-expanded="false"
+                        style="">
                         <ul class="flex-column pl-2 nav margin-toggled">
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                <a class="w_intern nav-link py-1 collapsed" data-menuid="51" href="#submenu4" data-toggle="collapse" aria-expanded="false">
+                                <a class="w_intern nav-link py-1 collapsed" data-menuid="51" href="#submenu4"
+                                    data-toggle="collapse" aria-expanded="false">
                                     <i class="fas fa-file-invoice-dollar" style="color: #007bff;"></i>
-                                    <span class="text-dark text-uppercase span-nav-lvl1">{{ __('client.invoiced') }}</span>
+                                    <span
+                                        class="text-dark text-uppercase span-nav-lvl1">{{ __('client.invoiced') }}</span>
                                 </a>
-                                <div class="rounded m-0 background-toggled1 collapse" id="submenu4" aria-expanded="false" style="">
+                                <div class="rounded m-0 background-toggled1 collapse" id="submenu4"
+                                    aria-expanded="false" style="">
                                     <ul class="flex-column pl-2 nav margin-toggled">
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="61"
+                                                href="/negocio/opcion1/61">
                                                 <i class="fas fa-globe" style="color: #007bff;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.global_vision') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.global_vision') }}</span>
                                             </a>
                                         </li>
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="62" href="/negocio/opcion2/62">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="62"
+                                                href="/negocio/opcion2/62">
                                                 <i class="fas fa-truck" style="color: #007bff;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.supplier') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.supplier') }}</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            
+
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                <a class="w_intern nav-link py-1 collapsed" data-menuid="51" href="#submenu5" data-toggle="collapse" aria-expanded="false">
+                                <a class="w_intern nav-link py-1 collapsed" data-menuid="51" href="#submenu5"
+                                    data-toggle="collapse" aria-expanded="false">
                                     <i class="fas fa-box-open" style="color: #007bff;"></i>
-                                    <span class="text-dark text-uppercase span-nav-lvl1">{{ __('client.consumed') }}</span>
+                                    <span
+                                        class="text-dark text-uppercase span-nav-lvl1">{{ __('client.consumed') }}</span>
                                 </a>
-                                <div class="rounded m-0 background-toggled1 collapse" id="submenu5" aria-expanded="false" style="">
+                                <div class="rounded m-0 background-toggled1 collapse" id="submenu5"
+                                    aria-expanded="false" style="">
                                     <ul class="flex-column pl-2 nav margin-toggled">
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="61"
+                                                href="/negocio/opcion1/61">
                                                 <i class="fas fa-globe" style="color: #007bff;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.global_vision') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.global_vision') }}</span>
                                             </a>
                                         </li>
                                         <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
-                                            <a class="w_intern1 nav-link py-1" data-menuid="62" href="/negocio/opcion2/62">
+                                            <a class="w_intern1 nav-link py-1" data-menuid="62"
+                                                href="/negocio/opcion2/62">
                                                 <i class="fas fa-truck" style="color: #007bff;"></i>
-                                                <span class="text-dark span-nav-lvl1">{{ __('client.supplier') }}</span>
+                                                <span
+                                                    class="text-dark span-nav-lvl1">{{ __('client.supplier') }}</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                        
+
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-glasses" style="color: #007bff;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.frames_by_collection') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.frames_by_collection') }}</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                
+
                 <li class="py-1 nav-item drop">
-                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu6" data-toggle="collapse" aria-expanded="false">
+                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu6" data-toggle="collapse"
+                        aria-expanded="false">
                         <i class="fas fa-user-check" style="color: #ee158c;"></i>
 
                         <span class="text-dark text-uppercase">{{ __('client.loyalty') }}</span>
                     </a>
-                    <div class="rounded m-0 background-toggled1 collapse" id="submenu6" aria-expanded="false" style="">
+                    <div class="rounded m-0 background-toggled1 collapse" id="submenu6" aria-expanded="false"
+                        style="">
                         <ul class="flex-column pl-2 nav margin-toggled">
-                        
+
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-file-signature" style="color: #ee158c;"></i>
 
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.contracts') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.contracts') }}</span>
                                 </a>
                             </li>
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-heart" style="color: #ee158c;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.loyalty_plan') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.loyalty_plan') }}</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                
+
                 <li class="py-1 nav-item drop">
-                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu7" data-toggle="collapse" aria-expanded="false">
+                    <a class="py-1 nav-link collapsed" data-menuid="5" href="#submenu7" data-toggle="collapse"
+                        aria-expanded="false">
                         <i class="fas fa-building" style="color: #343a40;"></i>
                         <span class="text-dark text-uppercase">{{ __('client.administration') }}</span>
                     </a>
-                    <div class="rounded m-0 background-toggled1 collapse" id="submenu7" aria-expanded="false" style="">
+                    <div class="rounded m-0 background-toggled1 collapse" id="submenu7" aria-expanded="false"
+                        style="">
                         <ul class="flex-column pl-2 nav margin-toggled">
-                        
+
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-shopping-cart" style="color: #343a40;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.orders') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.orders') }}</span>
                                 </a>
                             </li>
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-file-alt" style="color: #343a40;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.delivery_notes') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.delivery_notes') }}</span>
                                 </a>
                             </li>
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-truck" style="color: #343a40;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.product_shipments') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.product_shipments') }}</span>
                                 </a>
                             </li>
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-file-invoice-dollar" style="color: #343a40;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.invoices') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.invoices') }}</span>
                                 </a>
                             </li>
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-hourglass-half" style="color: #343a40;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.due_dates') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.due_dates') }}</span>
                                 </a>
                             </li>
                             <li class="w-100 py-1 nav-item d-flex flex-column align-items-end">
                                 <a class="w_intern1 nav-link py-1" data-menuid="61" href="/negocio/opcion1/61">
                                     <i class="fas fa-clock" style="color: #343a40;"></i>
-                                    <span class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.pending_items') }}</span>
+                                    <span
+                                        class="text-dark span-nav-lvl1 text-uppercase">{{ __('client.pending_items') }}</span>
                                 </a>
                             </li>
                         </ul>
