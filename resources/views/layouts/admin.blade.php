@@ -119,9 +119,8 @@
                 $nombre = $usuario['NAME'];
                 $dimension = $usuario['DIMENSION'];
                 $perfil = $usuario['PBAUSERPROFILE'];
-                $empresa = $request->query('empresa');
-                $weblogin = $request->query('weblogin');
-
+                $empresa = request('empresa');
+                $weblogin = request('weblogin');
             @endphp
             @if ($estado === true)
                 <!-- Divider -->
